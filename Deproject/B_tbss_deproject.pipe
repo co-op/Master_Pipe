@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="significant_voxels_1.Output" sink="tbss_deproject_2.inputimage" />
+        </connections>
+        <moduleGroup id="tbss_deproject_1" name="tbss_deproject" posX="0" posY="0" sourceCode="">
+                <module id="tbss_deproject_2" name="tbss_deproject" description="Confirm that a given skeleton point was derived from the correct tract-centre points in all subjects and/or take a skeleton-space voxel or set of voxels (for example, a skeleton-space blob that is significantly different between the two groups of subjects in the study) back to the space of the original subjects' data, in order to run tractography for each subject, with that result forming the tractography seed mask. " posX="68" posY="174" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-tbss_deproject.sh">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Mar 15 13:18:12 EDT 2013" />
+                        </metadata>
+                        <input id="tbss_deproject_2.inputimage" name="input image" required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="tbss_deproject_2.finalspace" name="final space" description="Final-space options:&#xA;1: just deproject &lt;skeleton-space-input-image&gt; onto the space of each subject in all_FA (output in &quot;stats&quot; directory)&#xA;&#xA;2: do the above and also invert nonlinear warping, to get back to subjects' native space in FA (outputs in &quot;FA&quot; directory)&#xA;" required="true" enabled="true" order="2">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>1</value>
+                                </values>
+                        </input>
+                        <input id="tbss_deproject_2.workingdir" name="working dir" required="true" enabled="true" order="0">
+                                <format type="Directory" cardinality="1" />
+                                <values>
+                                        <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S17/stats/</value>
+                                </values>
+                        </input>
+                </module>
+                <dataModule id="significant_voxels_1" name="significant_voxels" posX="84" posY="41" sourceCode="" type="File" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 18 09:52:55 EDT 2013" />
+                        </metadata>
+                        <output id="significant_voxels_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S17/stats/significant_voxels.nii.gz</value>
+                        </values>
+                </dataModule>
+                <annotations visible="true">
+                        <annotation width="671" height="188" posX="360" posY="18" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;1. Set input to significant_voxels output from stats_significant_voxels pipe&#xA;&#xA;2. Select space to deproject to:&#xA;&#xA;Option 1: just deproject &lt;skeleton-space-input-image&gt; onto the space of each nonlinearly registered subject in all_FA&#xA;&#xA;Option 2: do the first step and also invert the nonlinear warping, to get back to subjects' native space&#xA;&#xA;Press Play&#xA;&#xA;THIS PIPE IS BETA. MORE DOCUMENTATION CAN BE FOUND AT: http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/TBSS/UserGuide">
+                                <styles>
+                                        <style name="Steps:&#xA;&#xA;$0" fontSize="15" isBold="true" />
+                                        <style name="1. Set input to significant_voxels output from stats_significant_voxels pipe&#xA;&#xA;2. Select space to deproject to:&#xA;$8" fontSize="15" />
+                                        <style name="&#xA;Option 1:$119" fontSize="15" isBold="true" />
+                                        <style name=" just deproject &lt;skeleton-space-input-image&gt; onto the space of each nonlinearly registered subject in all_FA&#xA;&#xA;$129" fontSize="15" />
+                                        <style name="Option 2:$239" fontSize="15" isBold="true" />
+                                        <style name=" do the first step and also invert the nonlinear warping, to get back to subjects' native space&#xA;&#xA;$248" fontSize="15" />
+                                        <style name="Press Play&#xA;&#xA;THIS PIPE IS BETA. MORE DOCUMENTATION CAN BE FOUND AT: http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/TBSS/UserGuide$345" fontSize="15" isBold="true" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

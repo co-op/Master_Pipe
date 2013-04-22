@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="DTI1SessionNiftiInput_1.Output" sink="eddy_correct_1.Inputdiffusiondata" />
+                <connection source="eddy_correct_1.Outputname" sink="bet_1.InputFile" />
+                <connection source="eddy_correct_1.Outputname" sink="eddy_correctedoutput_1.Input" />
+                <connection source="bet_1.OutputFile" sink="skull_strippedoutput_1.Input" />
+                <connection source="bet_1.CreateBinaryMask" sink="brain_maskoutput_1.Input" />
+                <connection source="DTI2SessionNiftiInput_1.Output" sink="eddy_correct_2.Inputdiffusiondata" />
+                <connection source="eddy_correct_2.Outputname" sink="bet_2.InputFile" />
+                <connection source="bet_2.OutputFile" sink="skull_strippedoutput_2.Input" />
+                <connection source="bet_2.CreateBinaryMask" sink="brain_maskoutput_2.Input" />
+                <connection source="eddy_correct_2.Outputname" sink="eddy_correctedoutput_2.Input" />
+        </connections>
+        <moduleGroup id="multiple_eddy_bet_1" name="multiple_eddy_bet" posX="0" posY="0" sourceCode="">
+                <module id="eddy_correct_1" name="eddy_correct" package="FSL" description="Motion corrects images and reigsters them to a target reference volume (default = 0)&#xA;" posX="44" posY="162" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-eddy_correct">
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Jul 10 18:11:32 PDT 2008" />
+                        </metadata>
+                        <input id="eddy_correct_1.Inputdiffusiondata" name="Input diffusion data" required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="eddy_correct_1.Referencenumber" name="Reference number" required="false" enabled="true" order="2">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0</value>
+                                </values>
+                        </input>
+                        <output id="eddy_correct_1.Outputname" name="Output name" required="true" enabled="true" order="1" prefix=" " prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </module>
+                <module id="bet_1" name="bet" package="FSL" version="4.0.1" description="BET (Brain Extraction Tool) deletes non-brain tissue from an image of the whole head. It can also estimate the external skull surface." posX="60" posY="372" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-bet">
+                        <authors>
+                                <author fullName="D. Cornelius Hojatkashani" email="" website="" />
+                        </authors>
+                        <tag>skull stripping</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/bet2/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Sep 18 19:22:04 PDT 2006" />
+                        </metadata>
+                        <input id="bet_1.InputFile" name="Input File" description="Specifies the input file." required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="bet_1.OutputFile" name="Output File" description="Specifies the output file." required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="bet_1.OutlineBrainsurface" name="Outline Brainsurface" description="Generates brain surface outline overlaid onto original image." required="false" enabled="false" order="2" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <output id="bet_1.CreateBinaryMask" name="Create Binary Mask" description="Generates binary brain mask." required="false" enabled="true" order="3" prefix="-m " prefixSpaced="true" prefixAllArgs="false" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output File">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Subtract">.nii</transform>
+                                        <transform order="1" operation="Subtract">.nii.gz</transform>
+                                        <transform order="2" operation="Subtract">_mask</transform>
+                                        <transform order="3" operation="Append">_mask.nii.gz</transform>
+                                </format>
+                        </output>
+                        <output id="bet_1.GenerateSkullImage" name="Generate Skull Image" description="Generates approximate skull image." required="false" enabled="false" order="4" prefix="-s" prefixSpaced="true" prefixAllArgs="false" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output File">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Subtract">.nii</transform>
+                                        <transform order="1" operation="Subtract">.nii.gz</transform>
+                                        <transform order="2" operation="Append">_skull.nii.gz</transform>
+                                </format>
+                        </output>
+                        <input id="bet_1.DontSegmentOutput" name="Don't Segment Output" description="Don't generate segmented brain image output." required="false" enabled="false" order="5" prefix="-n" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="bet_1.FractionalIntensityThreshold" name="Fractional Intensity Threshold" description="Specifies fractional intensity threshold (0-&gt;1); default=0.5; smaller values give larger brain outline estimates" required="false" enabled="true" order="6" prefix="-f" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0.1</value>
+                                </values>
+                        </input>
+                        <input id="bet_1.VerticalGradientThreshold" name="Vertical Gradient Threshold" description="Specifies vertical gradient in fractional intensity threshold (-1-&gt;1). &#xA;(Default=0)&#xA;Note: Positive values give larger brain outline at bottom, smaller at top." required="false" enabled="false" order="7" prefix="-g" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="bet_1.HeadRadius" name="Head Radius" description="Specifies head radius (mm not voxels)&#xA;Note: Initial surface sphere is set to half of this." required="false" enabled="false" order="9" prefix="-r" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="bet_1.CenterofGravity" name="Center of Gravity" description="Specifies center-of-gravity (mm not voxels) of initial mesh surface." required="false" enabled="false" order="10" prefix="-c" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="3" />
+                        </input>
+                        <input id="bet_1.ApplyThresholding" name="Apply Thresholding" description="Apply thresholding to segmented brain image and mask." required="false" enabled="false" order="11" prefix="-t" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="bet_1.Verbose" name="Verbose" description="Enables verbose text output." required="false" enabled="false" order="8" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Steve Smith" email="steve@fmrib.ox.ac.uk" website="" />
+                                <author fullName="Mark Jenkinson" email="mark@fmrib.ox.ac.uk" website="" />
+                        </executableAuthors>
+                </module>
+                <dataModule id="DTI1SessionNiftiInput_1" name="DTI1 Session Nifti Input" posX="44" posY="41" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 10:56:20 EDT 2013" />
+                        </metadata>
+                        <output id="DTI1SessionNiftiInput_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/20121002_154520DTI1s008a001.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/20121002_164846DTI1s008a001.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/20121009_162005DTI1s008a001.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="eddy_correctedoutput_1" name="eddy_corrected output" posX="254" posY="261" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 11:59:16 EDT 2013" />
+                        </metadata>
+                        <input id="eddy_correctedoutput_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI1/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI1/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI1/eddy_corrected.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="skull_strippedoutput_1" name="skull_stripped output" posX="56" posY="593" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 12:01:28 EDT 2013" />
+                        </metadata>
+                        <input id="skull_strippedoutput_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI1/skull_stripped.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI1/skull_stripped.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI1/skull_stripped.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="brain_maskoutput_1" name="brain_mask output" posX="262" posY="451" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 12:03:07 EDT 2013" />
+                        </metadata>
+                        <input id="brain_maskoutput_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI1/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI1/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI1/brain_mask.nii.gz</value>
+                        </values>
+                </dataModule>
+                <module id="eddy_correct_2" name="eddy_correct" package="FSL" description="Motion corrects images and reigsters them to a target reference volume (default = 0)&#xA;" posX="514" posY="168" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-eddy_correct">
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Jul 10 18:11:32 PDT 2008" />
+                        </metadata>
+                        <input id="eddy_correct_2.Inputdiffusiondata" name="Input diffusion data" required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="eddy_correct_2.Referencenumber" name="Reference number" required="false" enabled="true" order="2">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0</value>
+                                </values>
+                        </input>
+                        <output id="eddy_correct_2.Outputname" name="Output name" required="true" enabled="true" order="1" prefix=" " prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </module>
+                <dataModule id="DTI2SessionNiftiInput_1" name="DTI2 Session Nifti Input" posX="514" posY="47" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 10:56:20 EDT 2013" />
+                        </metadata>
+                        <output id="DTI2SessionNiftiInput_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/20121002_154520DTI2s014a001.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/20121002_164846DTI2s014a001.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/20121009_162005DTI2s014a001.nii.gz</value>
+                        </values>
+                </dataModule>
+                <module id="bet_2" name="bet" package="FSL" version="4.0.1" description="BET (Brain Extraction Tool) deletes non-brain tissue from an image of the whole head. It can also estimate the external skull surface." posX="530" posY="378" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-bet">
+                        <authors>
+                                <author fullName="D. Cornelius Hojatkashani" email="" website="" />
+                        </authors>
+                        <tag>skull stripping</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/bet2/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Sep 18 19:22:04 PDT 2006" />
+                        </metadata>
+                        <input id="bet_2.InputFile" name="Input File" description="Specifies the input file." required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="bet_2.OutputFile" name="Output File" description="Specifies the output file." required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="bet_2.OutlineBrainsurface" name="Outline Brainsurface" description="Generates brain surface outline overlaid onto original image." required="false" enabled="false" order="2" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <output id="bet_2.CreateBinaryMask" name="Create Binary Mask" description="Generates binary brain mask." required="false" enabled="true" order="3" prefix="-m " prefixSpaced="true" prefixAllArgs="false" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output File">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Subtract">.nii</transform>
+                                        <transform order="1" operation="Subtract">.nii.gz</transform>
+                                        <transform order="2" operation="Subtract">_mask</transform>
+                                        <transform order="3" operation="Append">_mask.nii.gz</transform>
+                                </format>
+                        </output>
+                        <output id="bet_2.GenerateSkullImage" name="Generate Skull Image" description="Generates approximate skull image." required="false" enabled="false" order="4" prefix="-s" prefixSpaced="true" prefixAllArgs="false" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output File">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Subtract">.nii</transform>
+                                        <transform order="1" operation="Subtract">.nii.gz</transform>
+                                        <transform order="2" operation="Append">_skull.nii.gz</transform>
+                                </format>
+                        </output>
+                        <input id="bet_2.DontSegmentOutput" name="Don't Segment Output" description="Don't generate segmented brain image output." required="false" enabled="false" order="5" prefix="-n" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="bet_2.FractionalIntensityThreshold" name="Fractional Intensity Threshold" description="Specifies fractional intensity threshold (0-&gt;1); default=0.5; smaller values give larger brain outline estimates" required="false" enabled="true" order="6" prefix="-f" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0.1</value>
+                                </values>
+                        </input>
+                        <input id="bet_2.VerticalGradientThreshold" name="Vertical Gradient Threshold" description="Specifies vertical gradient in fractional intensity threshold (-1-&gt;1). &#xA;(Default=0)&#xA;Note: Positive values give larger brain outline at bottom, smaller at top." required="false" enabled="false" order="7" prefix="-g" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="bet_2.HeadRadius" name="Head Radius" description="Specifies head radius (mm not voxels)&#xA;Note: Initial surface sphere is set to half of this." required="false" enabled="false" order="9" prefix="-r" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="bet_2.CenterofGravity" name="Center of Gravity" description="Specifies center-of-gravity (mm not voxels) of initial mesh surface." required="false" enabled="false" order="10" prefix="-c" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="3" />
+                        </input>
+                        <input id="bet_2.ApplyThresholding" name="Apply Thresholding" description="Apply thresholding to segmented brain image and mask." required="false" enabled="false" order="11" prefix="-t" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="bet_2.Verbose" name="Verbose" description="Enables verbose text output." required="false" enabled="false" order="8" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Steve Smith" email="steve@fmrib.ox.ac.uk" website="" />
+                                <author fullName="Mark Jenkinson" email="mark@fmrib.ox.ac.uk" website="" />
+                        </executableAuthors>
+                </module>
+                <dataModule id="skull_strippedoutput_2" name="skull_stripped output" posX="526" posY="599" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 12:01:28 EDT 2013" />
+                        </metadata>
+                        <input id="skull_strippedoutput_2.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI2/skull_stripped.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI2/skull_stripped.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI2/skull_stripped.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="brain_maskoutput_2" name="brain_mask output" posX="732" posY="457" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 12:03:07 EDT 2013" />
+                        </metadata>
+                        <input id="brain_maskoutput_2.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI2/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI2/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI2/brain_mask.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="eddy_correctedoutput_2" name="eddy_corrected output" posX="724" posY="267" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Mar 11 11:59:16 EDT 2013" />
+                        </metadata>
+                        <input id="eddy_correctedoutput_2.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI2/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI2/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI2/eddy_corrected.nii.gz</value>
+                        </values>
+                </dataModule>
+                <variables>
+                        <variable name="exptDir">/path/to/exptDir</variable>
+                </variables>
+                <annotations visible="true">
+                        <annotation width="642" height="782" posX="1008" posY="6" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;1. Double click DTI1 Session Nifti input. Using Home Folder drag and drop DTI1 session images for each subject (appear immediately after bval/bvec files). Find&amp;Replace. Find: file://. Replace All (to remove 'file://' prefix)&#xA;&#xA;2. Copy all DTI1 Session Nifti input. Double click eddy_corrected output. Paste copied input into eddy_corrected output. Delete path after subject folder (e.g., LIFESPANS10/delete_this_DTI1.nii.gz). For first entry write new extension DTI1/eddy_corrected.nii.gz. Copy and paste new extension for ALL subjects.&#xA;&#xA;3.Copy eddy_corrected output and paste into brain_mask output. Find&amp;Replace. Find: eddy_corrected. Replace All: brain_mask.&#xA;&#xA;4. Repeat step 3 for skull_stripped output. Find&amp;Replace. Find: eddy_corrected. Replace All: skull_stripped.&#xA;&#xA;5. Repeat step 1. for DTI2 Session Nifti Input (session nifti file appears after DTI2 bval/bvec files).&#xA;&#xA;6. Copy DTI1 Session eddy_corrected output. Paste into DTI2 Session eddy_corrected output. Find&amp;Replace. Find: DTI1. Replace: DTI2&#xA;&#xA;7. Repeat step 6. for DTI2 brain_mask and skull_stripped output&#xA;&#xA;Press Play&#xA;&#xA;TIPS: &#xA;-When dragging and dropping DTI1 and DTI2 files: first click DTI1 file, then scroll to DTI2 file, press (Ctl+rightclick) to select both files and drag them into the pipeline&#xA;-Select all (Ctl+A)&#xA;-Copy (Ctl+C)&#xA;-Paste (Ctl+V)&#xA;-Highlight (shift+left/right arrow key)&#xA;-Undo(Ctl+Z)&#xA;-Right click (or press alt+tab) on Home Folder window and select 'always on top' so it remains on the screen.&#xA;&#xA;OUTPUT: DTI1 and DTI2 subdirectories for each subject directory containing eddy_corrected, brain_mask, and skull_stripped '.nii.gz' images respectively.">
+                                <styles>
+                                        <style name="Steps:$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;1. Double click DTI1 Session Nifti input. Using Home Folder drag and drop DTI1 session images for each subject (appear immediately after bval/bvec files).$6" fontSize="15" />
+                                        <style name=" Find&amp;Replace$162" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All (to remove 'file://' prefix)&#xA;&#xA;2. Copy all DTI1 Session Nifti input. Double click eddy_corrected output. Paste copied input into eddy_corrected output. Delete path after subject folder (e.g., LIFESPANS10/delete_this_DTI1.nii.gz). For first entry write new extension DTI1/eddy_corrected.nii.gz. Copy and paste new extension for ALL subjects.&#xA;&#xA;3.Copy eddy_corrected output and paste into brain_mask output. $175" fontSize="15" />
+                                        <style name="Find&amp;Replace$608" fontSize="15" isBold="true" />
+                                        <style name=". Find: eddy_corrected. Replace All: brain_mask.&#xA;&#xA;4. Repeat step 3 for skull_stripped output. $620" fontSize="15" />
+                                        <style name="Find&amp;Replace$714" fontSize="15" isBold="true" />
+                                        <style name=". Find: eddy_corrected. Replace All: skull_stripped.&#xA;&#xA;5. Repeat step 1. for DTI2 Session Nifti Input (session nifti file appears after DTI2 bval/bvec files).&#xA;&#xA;6. Copy DTI1 Session eddy_corrected output. Paste into DTI2 Session eddy_corrected output. $726" fontSize="15" />
+                                        <style name="Find&amp;Replace$976" fontSize="15" isBold="true" />
+                                        <style name=". Find: DTI1. Replace: DTI2&#xA;&#xA;7. Repeat step 6. for DTI2 brain_mask and skull_stripped output&#xA;&#xA;$988" fontSize="15" />
+                                        <style name="Press Play$1082" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;$1092" fontSize="15" />
+                                        <style name="TIPS:$1094" fontSize="15" isBold="true" />
+                                        <style name=" &#xA;-When dragging and dropping DTI1 and DTI2 files: first click DTI1 file, then scroll to DTI2 file, press (Ctl+rightclick) to select both files and drag them into the pipeline&#xA;-Select all (Ctl+A)&#xA;-Copy (Ctl+C)&#xA;-Paste (Ctl+V)&#xA;-Highlight (shift+left/right arrow key)&#xA;-Undo(Ctl+Z)&#xA;-Right click (or press alt+tab) on Home Folder window and select 'always on top' so it remains on the screen.&#xA;&#xA;$1099" fontSize="15" />
+                                        <style name="OUTPUT:$1488" fontSize="15" isBold="true" />
+                                        <style name=" DTI1 and DTI2 subdirectories for each subject directory containing eddy_corrected, brain_mask, and skull_stripped '.nii.gz' images respectively.$1495" fontSize="15" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

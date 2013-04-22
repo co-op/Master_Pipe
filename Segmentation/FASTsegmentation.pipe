@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="bet_1.OutputFile" sink="FASTnii.gz_1.Input" />
+                <connection source="segmentationsubdirectory_1.Output" sink="FASTnii.gz_1.MixelTypeOutput" />
+                <connection source="T1input_1.Output" sink="bet_1.InputFile" />
+                <connection source="bet_1.OutputFile" sink="brain_extractedoutput_1.Input" />
+                <connection source="bet_1.CreateBinaryMask" sink="brain_maskoutput_1.Input" />
+        </connections>
+        <moduleGroup id="segmentation_1" name="segmentation" posX="0" posY="0" sourceCode="">
+                <module id="FASTnii.gz_1" name="FAST (nii.gz)" package="FSL" version="4.1.4" description="FAST (FMRIB's Automated Segmentation Tool) segments a 3D image of the brain into different tissue types (Grey Matter, White Matter, CSF, etc.), whilst also correcting for spatial intensity variations (also known as bias field or RF inhomogeneities). The underlying method is based on a hidden Markov random field model and an associated Expectation-Maximization algorithm. The whole process is fully automated and can also produce a bias field-corrected input image and a probabilistic and/or partial volume tissue segmentation. It is robust and reliable, compared to most finite mixture model-based methods, which are sensitive to noise. " posX="32" posY="473" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-fast" executableVersion="4.1.4">
+                        <authors>
+                                <author fullName="Alen Zamanyan" email="Alen.Zamanyan@loni.ucla.edu " website="http://loni.ucla.edu " />
+                        </authors>
+                        <citations>
+                                <citation>S.M. Smith, M. Jenkinson, M.W. Woolrich, C.F. Beckmann, T.E.J. Behrens, H. Johansen-Berg, P.R. Bannister, M. De Luca, I. Drobnjak, D.E. Flitney, R. Niazy, J. Saunders, J. Vickers, Y. Zhang, N. De Stefano, J.M. Brady, and P.M. Matthews. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage, 23(S1):208-219, 2004
+
+PMID: 15501092</citation>
+                        </citations>
+                        <tag>tissue</tag>
+                        <tag>classification</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/fast4/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Sep 18 19:45:14 PDT 2006" />
+                        </metadata>
+                        <input id="FASTnii.gz_1.Input" name="Input" description="Specifies the skullstripped input volume file path." required="true" enabled="true" order="23">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FASTnii.gz_1.Help" name="Help" description="Prints help information and exit." required="false" enabled="false" order="22" prefix="-help" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.NumberofTissueTypeClasses" name="Number of Tissue Type Classes" description="number of tissue-type classes; default=3" required="false" enabled="true" order="1" prefix="-n" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>3</value>
+                                </values>
+                        </input>
+                        <input id="FASTnii.gz_1.Main-LoopIterations" name="Main-Loop Iterations" description="number of main-loop iterations during bias-field removal; default=4" required="false" enabled="true" order="3" prefix="-I" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>4</value>
+                                </values>
+                        </input>
+                        <input id="FASTnii.gz_1.BiasFieldSmoothingExtent" name="Bias Field Smoothing Extent" description="bias field smoothing extent (FWHM) in mm; default=20" required="false" enabled="true" order="4" prefix="-l" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>20</value>
+                                </values>
+                        </input>
+                        <input id="FASTnii.gz_1.Imagetype" name="Image type" description="type of image 1=T1, 2=T2, 3=PD; default=T1" required="false" enabled="true" order="0" prefix="-t" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>1</value>
+                                </values>
+                        </input>
+                        <input id="FASTnii.gz_1.InitialSegSpatialSmoothness" name="Initial Seg Spatial Smoothness" description="initial segmentation spatial smoothness (during bias field estimation); default=0.02" required="false" enabled="false" order="5" prefix="-f" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FASTnii.gz_1.OutputSeparateTissueTypes" name="Output Separate Tissue Types" description="outputs a separate binary image for each tissue type" required="false" enabled="false" order="6" prefix="-g" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.Priors" name="Priors" description="initialise using priors; you must supply a FLIRT transform" required="false" enabled="true" order="7" prefix="-a" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="MAT File" extension="mat" description="Matrix describing transformation of image into standard space (found by first_flirt)." />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://localhost//usr/share/fsl/5.0/etc/flirtsch/ident.mat</value>
+                                </values>
+                        </input>
+                        <input id="FASTnii.gz_1.AlternativePriors" name="Alternative Priors" required="false" enabled="false" order="8" prefix="-A" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="MAT File" extension="mat" description="Matrix describing transformation of image into standard space (found by first_flirt)." />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FASTnii.gz_1.NoPVE" name="No PVE" description="turn off PVE (partial volume estimation)" required="false" enabled="false" order="10" prefix="--nopve" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.EstimatedBiasField" name="Estimated Bias Field" description="output estimated bias field" required="false" enabled="false" order="11" prefix="-b" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.Bias-CorrectedImage" name="Bias-Corrected Image" description="output bias-corrected image" required="false" enabled="false" order="12" prefix="-B" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.DoNotRemoveBiasField" name="Do Not Remove Bias Field" description="do not remove bias field" required="false" enabled="false" order="13" prefix="-N" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.NumberofInputs" name="Number of Inputs" description="number of input images (channels); default 1" required="false" enabled="false" order="14" prefix="-S" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FASTnii.gz_1.MixelTypeOutput" name="Mixel Type Output" description="output basename" required="true" enabled="true" order="9" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Directory" cardinality="1" />
+                        </input>
+                        <input id="FASTnii.gz_1.UsePriorsThroughout" name="Use Priors Throughout" description="use priors throughout; you must also set the -a option" required="false" enabled="false" order="15" prefix="-P" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.Seg-InitIterations" name="Seg-Init Iterations" description="number of segmentation-initialisation iterations; default=15&#xA;" required="false" enabled="false" order="16" prefix="-W" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FASTnii.gz_1.SpatialSmoothnessforMixeltype" name="Spatial Smoothness for Mixeltype" description="spatial smoothness for mixeltype; default=0.3" required="false" enabled="false" order="17" prefix="-R" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FASTnii.gz_1.Main-LoopIterationAfterBiasFieldRemoval" name="Main-Loop Iteration After Bias Field Removal" description="number of main-loop iterations after bias-field removal; default=4&#xA;" required="false" enabled="false" order="18" prefix="-O" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FASTnii.gz_1.SegmentationSpatialSmoothness" name="Segmentation Spatial Smoothness" description="segmentation spatial smoothness; default=0.1" required="false" enabled="true" order="2" prefix="-H" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0.1</value>
+                                </values>
+                        </input>
+                        <input id="FASTnii.gz_1.Verbose" name="Verbose" description="switch on diagnostic messages" required="false" enabled="false" order="19" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FASTnii.gz_1.ManualSeg" name="Manual Seg" description="Filename containing intensities" required="false" enabled="false" order="20" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FASTnii.gz_1.IndividualProbabilityMaps" name="Individual Probability Maps" description="outputs individual probability maps" required="false" enabled="false" order="21" prefix="-p" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <output id="FASTnii.gz_1.CSFProbabilityMap" name="CSF Probability Map" required="false" enabled="false" order="24">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="FASTnii.gz_1.GMProbabilityMap" name="GM Probability Map" required="false" enabled="false" order="25">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="FASTnii.gz_1.WMProbabilityMap" name="WM Probability Map" required="false" enabled="false" order="26">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="FASTnii.gz_1.TissueLabels-PartialVolumeEstimates" name="Tissue Labels - Partial Volume Estimates" required="false" enabled="false" order="27">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="FASTnii.gz_1.TissueLabels" name="Tissue Labels" required="false" enabled="false" order="28">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Steve Smith" email="steve@fmrib.ox.ac.uk" website="http://www.fmrib.ox.ac.uk/Members/steve " />
+                                <author fullName="Mark Jenkinson" email="mark@fmrib.ox.ac.uk" website="http://users.fmrib.ox.ac.uk/~mark/ " />
+                        </executableAuthors>
+                        <license>http://www.fmrib.ox.ac.uk/fsl/fsl/licence.html
+
+LICENCE
+
+FMRIB Software Library, Release 4.1 (c) 2008, The University of Oxford
+(the "Software")
+
+The Software remains the property of the University of Oxford ("the
+University").
+
+The Software is distributed "AS IS" under this Licence solely for
+non-commercial use in the hope that it will be useful, but in order
+that the University as a charitable foundation protects its assets for
+the benefit of its educational and research purposes, the University
+makes clear that no condition is made or to be implied, nor is any
+warranty given or to be implied, as to the accuracy of the Software,
+or that it will be suitable for any particular purpose or for use
+under any specific conditions. Furthermore, the University disclaims
+all responsibility for the use which is made of the Software. It
+further disclaims any liability for the outcomes arising from using
+the Software.
+
+The Licensee agrees to indemnify the University and hold the
+University harmless from and against any and all claims, damages and
+liabilities asserted by third parties (including claims for
+negligence) which arise directly or indirectly from the use of the
+Software or the sale of any products based on the Software.
+
+No part of the Software may be reproduced, modified, transmitted or
+transferred in any form or by any means, electronic or mechanical,
+without the express permission of the University. The permission of
+the University is not required if the said reproduction, modification,
+transmission or transference is done without financial return, the
+conditions of this Licence are imposed upon the receiver of the
+product, and all original and amended source code is included in any
+transmitted product. You may be held legally responsible for any
+copyright infringement that is caused or encouraged by your failure to
+abide by these terms and conditions.
+
+You are not permitted under this Licence to use this Software
+commercially. Use for which any financial return is received shall be
+defined as commercial use, and includes (1) integration of all or part
+of the source code or the Software into a product for sale or license
+by or on behalf of Licensee to third parties or (2) use of the
+Software or any derivative of it for research with the final aim of
+developing software products for sale or license to a third party or
+(3) use of the Software or any derivative of it for research with the
+final aim of developing non-software products for sale or license to a
+third party, or (4) use of the Software to provide any service to an
+external organisation for which payment is received. If you are
+interested in using the Software commercially, please contact Isis
+Innovation Limited ("Isis"), the technology transfer company of the
+University, to negotiate a licence. Contact details are:
+innovation@isis.ox.ac.uk quoting reference BS/3497.</license>
+                </module>
+                <module id="bet_1" name="bet" package="FSL" version="4.0.1" description="BET (Brain Extraction Tool) deletes non-brain tissue from an image of the whole head. It can also estimate the external skull surface." posX="410" posY="190" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-bet">
+                        <authors>
+                                <author fullName="D. Cornelius Hojatkashani" email="" website="" />
+                        </authors>
+                        <tag>skull stripping</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/bet2/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Sep 18 19:22:04 PDT 2006" />
+                        </metadata>
+                        <input id="bet_1.InputFile" name="Input File" description="Specifies the input file." required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="bet_1.OutputFile" name="Output File" description="Specifies the output file." required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="bet_1.OutlineBrainsurface" name="Outline Brainsurface" description="Generates brain surface outline overlaid onto original image." required="false" enabled="false" order="2" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <output id="bet_1.CreateBinaryMask" name="Create Binary Mask" description="Generates binary brain mask." required="false" enabled="true" order="3" prefix="-m " prefixSpaced="true" prefixAllArgs="false" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output File">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Subtract">.nii</transform>
+                                        <transform order="1" operation="Subtract">.nii.gz</transform>
+                                        <transform order="2" operation="Subtract">_mask</transform>
+                                        <transform order="3" operation="Append">_mask.nii.gz</transform>
+                                </format>
+                        </output>
+                        <output id="bet_1.GenerateSkullImage" name="Generate Skull Image" description="Generates approximate skull image." required="false" enabled="false" order="4" prefix="-s" prefixSpaced="true" prefixAllArgs="false" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output File">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Subtract">.nii</transform>
+                                        <transform order="1" operation="Subtract">.nii.gz</transform>
+                                        <transform order="2" operation="Append">_skull.nii.gz</transform>
+                                </format>
+                        </output>
+                        <input id="bet_1.DontSegmentOutput" name="Don't Segment Output" description="Don't generate segmented brain image output." required="false" enabled="false" order="5" prefix="-n" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="bet_1.FractionalIntensityThreshold" name="Fractional Intensity Threshold" description="Specifies fractional intensity threshold (0-&gt;1); default=0.5; smaller values give larger brain outline estimates" required="false" enabled="true" order="6" prefix="-f" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0.5</value>
+                                </values>
+                        </input>
+                        <input id="bet_1.VerticalGradientThreshold" name="Vertical Gradient Threshold" description="Specifies vertical gradient in fractional intensity threshold (-1-&gt;1). &#xA;(Default=0)&#xA;Note: Positive values give larger brain outline at bottom, smaller at top." required="false" enabled="false" order="7" prefix="-g" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="bet_1.HeadRadius" name="Head Radius" description="Specifies head radius (mm not voxels)&#xA;Note: Initial surface sphere is set to half of this." required="false" enabled="false" order="9" prefix="-r" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="bet_1.CenterofGravity" name="Center of Gravity" description="Specifies center-of-gravity (mm not voxels) of initial mesh surface." required="false" enabled="false" order="10" prefix="-c" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="3" />
+                        </input>
+                        <input id="bet_1.ApplyThresholding" name="Apply Thresholding" description="Apply thresholding to segmented brain image and mask." required="false" enabled="false" order="11" prefix="-t" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="bet_1.Verbose" name="Verbose" description="Enables verbose text output." required="false" enabled="false" order="8" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Steve Smith" email="steve@fmrib.ox.ac.uk" website="" />
+                                <author fullName="Mark Jenkinson" email="mark@fmrib.ox.ac.uk" website="" />
+                        </executableAuthors>
+                </module>
+                <dataModule id="T1input_1" name="T1 input" posX="410" posY="14" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Mar 06 12:01:44 EST 2013" />
+                        </metadata>
+                        <output id="T1input_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/DICOM/LIFESPANS9/20120725_100021T1s007a1001.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="brain_extractedoutput_1" name="brain_extracted output" description="Double click to set output file path" posX="756" posY="575" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Feb 20 10:58:39 EST 2013" />
+                        </metadata>
+                        <input id="brain_extractedoutput_1.Input" name="Input" description="Double click to set output file path" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/DICOM/LIFESPANS9/segmentation/brain_extracted.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="brain_maskoutput_1" name="brain_mask output" description="Double click to set output file path" posX="759" posY="470" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Feb 20 10:58:39 EST 2013" />
+                        </metadata>
+                        <input id="brain_maskoutput_1.Input" name="Input" description="Double click to set output file path" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/DICOM/LIFESPANS9/segmentation/brain_mask.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="segmentationsubdirectory_1" name="segmentation subdirectory" posX="11" posY="197" sourceCode="" type="Directory" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Mar 27 11:14:03 EDT 2013" />
+                        </metadata>
+                        <output id="segmentationsubdirectory_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="Directory" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/DICOM/LIFESPANS9/segmentation/</value>
+                        </values>
+                </dataModule>
+                <variables>
+                        <variable name="exptDir">/path/to/exptDir</variable>
+                </variables>
+                <annotations visible="true">
+                        <annotation width="782" height="386" posX="630" posY="25" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;1. In subject directory, create folder 'segmentation'&#xA;&#xA;2. Drag and drop T1 'nii.gz' file from desired subject directory. Find&amp;Replace. Find: file://. Replace All&#xA;&#xA;3. Double click segmentation subdirectory. Drag and drop in the directory you made. Find&amp;Replace. Find: file://. Replace All. (NOTE: be sure to add '/' after the word segmentation to tell FAST to write to that directory)&#xA;&#xA;4. Copy T1 input to brain_mask output. Delete file path suffix (i.e., LIFESPANS9/delete_this_T1.nii.gz). Add: 'segmentation/brain_mask.nii.gz'&#xA;&#xA;5. Copy brain_mask output to brain_extracted output. Change '_mask' to '_extracted'&#xA;&#xA;TIPS: &#xA;-T1 image file for subject usually found after 'localiser' files&#xA;&#xA;Press Play&#xA;">
+                                <styles>
+                                        <style name="Steps:&#xA;&#xA;$0" fontSize="15" isBold="true" />
+                                        <style name="1. In subject directory, create folder 'segmentation'&#xA;&#xA;2. Drag and drop T1 'nii.gz' file from desired subject directory. $8" fontSize="15" />
+                                        <style name="Find&amp;Replace$129" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All&#xA;&#xA;3. Double click segmentation subdirectory. Drag and drop in the directory you made. $141" fontSize="15" />
+                                        <style name="Find&amp;Replace$255" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All. $267" fontSize="15" />
+                                        <style name="(NOTE: be sure to add '/' after the word segmentation to tell FAST to write to that directory)$297" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;4. Copy T1 input to brain_mask output. Delete file path suffix (i.e., LIFESPANS9/delete_this_T1.nii.gz). Add: 'segmentation/brain_mask.nii.gz'&#xA;&#xA;5. Copy brain_mask output to brain_extracted output. Change '_mask' to '_extracted'&#xA;&#xA;$391" fontSize="15" />
+                                        <style name="TIPS:$622" fontSize="15" isBold="true" />
+                                        <style name=" &#xA;-T1 image file for subject usually found after 'localiser' files&#xA;&#xA;$627" fontSize="15" />
+                                        <style name="Press Play&#xA;$695" fontSize="15" isBold="true" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

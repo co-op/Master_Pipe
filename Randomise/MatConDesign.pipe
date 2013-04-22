@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="all_FA_skeletonisedInput_1.Output" sink="design_ttest2_1.input" />
+        </connections>
+        <moduleGroup id="designMatCon_1" name="designMatCon" posX="0" posY="0" sourceCode="">
+                <module id="design_ttest2_1" name="design_ttest2" posX="84" posY="214" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-design_ttest2">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 05 12:20:54 EST 2013" />
+                        </metadata>
+                        <input id="design_ttest2_1.input" name="input" required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="design_ttest2_1.NumControl" name="Num Control" description="Enter the number of control images" required="true" enabled="true" order="1">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0</value>
+                                </values>
+                        </input>
+                        <input id="design_ttest2_1.NumPatients" name="Num Patients" description="Enter the number of individual patient images" required="true" enabled="true" order="2">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>4</value>
+                                </values>
+                        </input>
+                        <output id="design_ttest2_1.output" name="output" required="false" enabled="false" order="3">
+                                <format type="Flow Control" cardinality="-2" cardinalityBase="input" />
+                        </output>
+                </module>
+                <dataModule id="all_FA_skeletonisedInput_1" name="all_FA_skeletonised Input" posX="76" posY="36" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 05 12:23:26 EST 2013" />
+                        </metadata>
+                        <output id="all_FA_skeletonisedInput_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S2_vs_S17/stats/all_FA_skeletonised.nii.gz</value>
+                        </values>
+                </dataModule>
+                <annotations visible="true">
+                        <annotation width="200" height="100" posX="342" posY="227" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Generates design files for the two-group unpaired t-test case">
+                                <styles>
+                                        <style name="Generates design files for the two-group unpaired t-test case$0" fontSize="15" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

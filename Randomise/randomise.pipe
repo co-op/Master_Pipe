@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="all_FA_skeletonisedInput_1.Output" sink="Randomise_1.Input" />
+        </connections>
+        <moduleGroup id="randomise_1" name="randomise" posX="0" posY="0" sourceCode="">
+                <module id="Randomise_1" name="Randomise" description="Compulsory arguments (You MUST set one or more of):" posX="307" posY="192" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-randomise">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Feb 27 13:48:15 EST 2013" />
+                        </metadata>
+                        <input id="Randomise_1.Designmat" name="Design mat" description="Design matrix file" required="false" enabled="true" order="2" prefix="-d" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S2_vs_S17/stats/all_FA_skeletonised.nii.gz.mat</value>
+                                </values>
+                        </input>
+                        <input id="Randomise_1.Designcon" name="Design con" description="t contrasts file" required="false" enabled="true" order="3" prefix="-t" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S2_vs_S17/stats/all_FA_skeletonised.nii.gz.con</value>
+                                </values>
+                        </input>
+                        <input id="Randomise_1.Demean" name="Demean" description="Demean data temporally before model fitting" required="false" enabled="true" order="15" prefix="-D" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.maskimage" name="mask image" description="Mask image" required="false" enabled="true" order="5" prefix="-m" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S2_vs_S17/stats/mean_FA_skeleton_mask.nii.gz</value>
+                                </values>
+                        </input>
+                        <input id="Randomise_1.fcontrast" name="f contrast" description="F contrasts file" required="false" enabled="false" order="6" prefix="-f" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.exchangeability" name="exchangeability" description="Exchangeability block labels file" required="false" enabled="false" order="7" prefix="-e" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.Effectivedesign" name="Effective design" description="Alternative design for determining valid permutations" required="false" enabled="false" order="8" prefix="--effective_design" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Randomise_1.printunique" name="print unique" description="Pront out how many unique permutations would be generated and exit" required="false" enabled="false" order="9" prefix="-q" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.numpermutations" name="num permutations" description="Number of permutations (default 5000, set to 0 for exhaustive)" required="false" enabled="true" order="11" prefix="-n" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>500</value>
+                                </values>
+                        </input>
+                        <input id="Randomise_1.outputvoxelwiseimages" name="output voxelwise images" description="output voxelwise (corrected and uncorrected) p-value images" required="false" enabled="false" order="12" prefix="-x" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.Threshold-free" name="Threshold-free" description="Carry out Threshold-Free Cluster Enhancement with 2D optimisation (e.g. for TBSS data); H=2, E=1, C=26" required="false" enabled="true" order="16" prefix="-T" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.clusterthreshold" name="cluster threshold" description="Carry out cluster-based thresholding" required="false" enabled="false" order="18" prefix="-c" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Randomise_1.clusterthreshold-massbased" name="cluster threshold -mass based" description="Carry out cluster-mass-based thresholding" required="false" enabled="false" order="19" prefix="-C" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Randomise_1.Fclusterthreshold" name="F cluster threshold" description="Carry out f cluster thresholding" required="false" enabled="false" order="20" prefix="-F" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Randomise_1.Fcluster-massthreshold" name="F cluster-mass threshold" description="Carry out f cluster-mass thresholding" required="false" enabled="false" order="21" prefix="-S" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Randomise_1.variancesmoothing" name="variance smoothing" description="Use variance smoothing (std is in mm, e.g. '5' does 5mm HWHM variance smoothing)" required="false" enabled="false" order="14" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>5</value>
+                                </values>
+                        </input>
+                        <input id="Randomise_1.Help" name="Help" description="Help message in Error Stream" required="false" enabled="false" order="22" prefix="--help" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.vectortext" name="vector text" description="Output permutation vector text file" required="false" enabled="false" order="26" prefix="-P" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="0">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.Norcmask" name="Norcmask" description="don't remove constant voxels from mask" required="false" enabled="false" order="28" prefix="--norcmask" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Randomise_1.TfceH" name="Tfce H" description="Height parameter (default=2)" required="false" enabled="false" order="30" prefix="--tfce_H" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="2" />
+                        </input>
+                        <input id="Randomise_1.TfceE" name="Tfce E" description="Extent parameter (default=0.5)" required="false" enabled="false" order="31" prefix="--tfce_E" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="2" />
+                        </input>
+                        <input id="Randomise_1.TfceC" name="Tfce C" description="Connectivity (6 or 26; default=6)" required="false" enabled="false" order="32" prefix="--tfce_C" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="2" />
+                        </input>
+                        <input id="Randomise_1.Vxl" name="Vxl" description="List of 4D images containing voxelwise EVs (list order corresponds to numbers in vxl option). caution BETA option." required="false" enabled="false" order="33" prefix="--vxl" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.Group-meantest" name="Group-mean test" description="Preform 1 sample group-mean test instead of generic permutation test" required="false" enabled="false" order="4" prefix="-1" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.printparallel" name="print parallel" description="print out information require for parallel mode and exit" required="false" enabled="false" order="10" prefix="-Q" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.f-statistics" name="f-statistics" description="calculate f-statistics only" required="false" enabled="false" order="13" prefix="--fonly" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.Threshold-free2Doptimisation" name="Threshold-free 2D optimisation" description="carry out Threshold-Free Cluster enhancement with 2D optimisation (e.g. for TBSS data); H=2, E=1, C=26" required="false" enabled="false" order="17" prefix="--T2" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="Randomise_1.diagnosticmessagesoff" name="diagnostic messages off" description="switch off diagnostic messages" required="false" enabled="false" order="23" prefix="--quiet" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.clusternormalisationthresholding" name="cluster normalisation thresholding" description="carry out cluster normalisation thresholding" required="false" enabled="false" order="24" prefix="--twopass" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.outputrawimages" name="output raw images" description="output raw (unpermuted) statistic images" required="false" enabled="false" order="25" prefix="-R" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.nulltext" name="null text" description="output null distribution text files" required="false" enabled="false" order="27" prefix="-N" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.seed" name="seed" description="specific integer seed for random number generator" required="false" enabled="false" order="29" prefix="--seed" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.Vxf" name="Vxf" description="list of 4D images containing voxelwise EVs (list order corresponds to numbers in vxl option). Caution BETA option." required="false" enabled="false" order="34" prefix="--vxf" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.permuteblocks" name="permute blocks" description="permute exchangeability blocks. Caution BETA option" required="false" enabled="false" order="35" prefix="--permuteBlocks" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.giminformation" name="gim information" description="output gim information for t-statistics (unpermuted case only)" required="false" enabled="false" order="36" prefix="--gim_output" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.Input" name="Input" required="true" enabled="true" order="0" prefix="-i" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="Randomise_1.Output" name="Output" required="true" enabled="true" order="1" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Directory" cardinality="1" />
+                                <values>
+                                        <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S2_vs_S17/stats/</value>
+                                </values>
+                        </input>
+                </module>
+                <dataModule id="all_FA_skeletonisedInput_1" name="all_FA_skeletonised Input" posX="296" posY="40" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 05 14:47:53 EST 2013" />
+                        </metadata>
+                        <output id="all_FA_skeletonisedInput_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/TBSS_S2_vs_S17/stats/all_FA_skeletonised.nii.gz</value>
+                        </values>
+                </dataModule>
+                <annotations visible="true">
+                        <annotation width="628" height="116" posX="651" posY="123" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;1. Double click input&#xA;2. Select Browse--&gt;TBSS directory--&gt;stats--&gt;all_fa_skeletonised&#xA;3. Set output basename (default TBSS directory)&#xA;4. Specify options - default recommended (NOTE: If less than 20 subjects use variance smoothing (-v) for a decrease in running time)&#xA;5. Press Play ">
+                                <styles>
+                                        <style name="Steps:$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;1. Double click input&#xA;2. Select Browse--&gt;TBSS directory--&gt;stats--&gt;all_fa_skeletonised&#xA;3. Set output basename (default TBSS directory)&#xA;4. Specify options - default recommended (NOTE: If less than 20 subjects use variance smoothing (-v) for a decrease in running time)&#xA;5. Press Play $6" fontSize="15" />
+                                </styles>
+                        </annotation>
+                        <annotation width="267" height="262" posX="16" posY="30" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="randomise produces a test statistic image (e.g., ADvsNC_tstat1, if your chosen output rootname is ADvsNC) and sets of P-value images. &#xA;&#xA;TFCE (Threshold-Free Cluster Enhancement) is a new method for finding &quot;clusters&quot; in your data without having to define clusters in a binary way. &#xA;&#xA;Expected Output:&#xA;Raw Test Stat: _tfce_tstat&#xA;Uncorrected P: _tfce_p_tstat&#xA;FWE-Corrected P: _tfce_corrp_tstat&#xA;">
+                                <styles>
+                                        <style name="randomise produces a test statistic image (e.g., ADvsNC_tstat1, if your chosen output rootname is ADvsNC) and sets of P-value images. &#xA;&#xA;TFCE (Threshold-Free Cluster Enhancement) is a new method for finding &quot;clusters&quot; in your data without having to define clusters in a binary way. &#xA;&#xA;$0" fontSize="12" />
+                                        <style name="Expected Output:$283" fontSize="12" isBold="true" />
+                                        <style name="&#xA;Raw Test Stat: _tfce_tstat&#xA;Uncorrected P: _tfce_p_tstat&#xA;FWE-Corrected P: _tfce_corrp_tstat&#xA;$299" fontSize="12" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

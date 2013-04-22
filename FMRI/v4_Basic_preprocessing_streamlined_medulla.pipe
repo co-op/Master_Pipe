@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="FSFUpdate_1.OutputDirectory" sink="AppendFEATSuffix_1.featoutputdirectorybasename" />
+                <connection source="FSLFEAT_1.flowcontrol" sink="AppendFEATSuffix_1.flowcontrolinput" />
+                <connection source="FSFUpdate_1.UpdatedFSFDesignFile" sink="FSFCheck_1.Input" />
+                <connection source="smartline_SSMA_SkullStrippedOutput_1.smartlineoutput" sink="SkullStrippedOutput_1.Input" />
+                <connection source="FSLMergenii.gz_1.OutputFile" sink="4D_DataOutput_1.Input" />
+                <connection source="AppendFEATSuffix_1.featoutputdirectorywithsuffix" sink="FEATOutputDirectory_1.Input" />
+                <connection source="FSL.fsfDesignFile_1.Output" sink="FSFUpdate_1.TemplateFSFDesignFile" />
+                <connection source="FSLMergenii.gz_1.OutputFile" sink="FSFUpdate_1.4DImageFilename" />
+                <connection source="MNIAtlasSpace_1.Output" sink="FSFUpdate_1.StandardSpaceFilename" />
+                <connection source="smartline_SSMA_FSFUpdate_1.smartlineoutput" sink="FSFUpdate_1.SubjectHighResolutionAnatomicalFilename" />
+                <connection source="smartline_SSMA_FSFUpdate_2.smartlineoutput" sink="FSFUpdate_1.SubjectStructuralImageforAnalysis" />
+                <connection source="ExperimentalVariable1FileTask_1.Output" sink="FSFUpdate_1.ExperimentalVariable1Filename" />
+                <connection source="ExperimentalVariable2FileRest_1.Output" sink="FSFUpdate_1.ExperimentalVariable2Filename" />
+                <connection source="NumberofTRs_1.Output" sink="FSFUpdate_1.NuumberofTRs" />
+                <connection source="smartline_T1AnatomicalImages3DCompressedNifti_BiasFi_1.smartlineoutput" sink="BiasFieldCorrector_1.InputFile" />
+                <connection source="T1AnatomicalImages3DCompressedNifti_1.Output" sink="smartline_T1AnatomicalImages3DCompressedNifti_BiasFi_1.smartlineinput" />
+                <connection source="BiasFieldCorrector_1.OutputFile" sink="soft-linking_1.in" />
+                <connection source="soft-linking_1.out" sink="SSMA_1.in" />
+                <connection source="SSatlasreference_1.Output" sink="SSMA_1.ref" />
+                <connection source="SSMA_1.out" sink="smartline_SSMA_SkullStrippedOutput_1.smartlineinput" />
+                <connection source="SSMA_1.out" sink="smartline_SSMA_FSFUpdate_1.smartlineinput" />
+                <connection source="SSMA_1.out" sink="smartline_SSMA_FSFUpdate_2.smartlineinput" />
+                <connection source="OneFunctionalRun_1.Output" sink="FSLMergenii.gz_1.InputFiles" />
+                <connection source="FSFUpdate_1.UpdatedFSFDesignFile" sink="FSLFEAT_1.FSFDesignInputFilename" />
+        </connections>
+        <moduleGroup id="Basic_preprocessing_streamlined_cranium_v2_1" name="Basic_preprocessing_streamlined_cranium_v2" posX="0" posY="0" sourceCode="">
+                <dataModule id="OneFunctionalRun_1" name="One Functional Run" package="fMRI" version="1.0" description="This is a test data from the Buckner study. Subject 1 single runA.&#xA;One complete functional run's-wroth of .nii files.  More can be added to produce a larger concatenated list involving multiple runs-worth of BOLD EPI data." posX="252" posY="0" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Jun 24 15:17:37 PDT 2009" />
+                        </metadata>
+                        <output id="OneFunctionalRun_1.Output" name="Output" description="This is a test data from the Buckner study. Subject 1 single runA.&#xA;One complete functional run's-wroth of .nii files.  More can be added to produce a larger concatenated list involving multiple runs-worth of BOLD EPI data." required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/DICOM/LIFESPANS9/20120725_100021BOLDTASKs004a001.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="T1AnatomicalImages3DCompressedNifti_1" name="T1 Anatomical Images (3D Compressed Nifti)" package="LONI" version="1.0" posX="931" posY="10" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Apr 30 16:54:31 PDT 2009" />
+                        </metadata>
+                        <output id="T1AnatomicalImages3DCompressedNifti_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/DICOM/LIFESPANS9/20120725_100021T1s007a1001.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="NumberofTRs_1" name="Number of TRs" description="For now, you will have to indicate specifically how many total TRs, involving all runs, are to be given in the design.fsf file.  We hope to provide functionality for this to be done dynamically in the future (e.g. via calculation using FSLNVols)." posX="18" posY="602" rotation="1" sourceCode="" type="Number" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Jun 30 10:13:31 PDT 2009" />
+                        </metadata>
+                        <output id="NumberofTRs_1.Output" name="Output" description="For now, you will have to indicate specifically how many total TRs, involving all runs, are to be given in the design.fsf file.  We hope to provide functionality for this to be done dynamically in the future (e.g. via calculation using FSLNVols)." required="true" enabled="true" order="-1">
+                                <format type="Number" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>280</value>
+                        </values>
+                </dataModule>
+                <dataModule id="ExperimentalVariable1FileTask_1" name="Experimental Variable 1 File (Task)" package="fMRI" version="1.0" description="This is a test data from the Buckner study. Subject 1 single runA." posX="19" posY="246" rotation="1" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Jun 24 15:17:37 PDT 2009" />
+                        </metadata>
+                        <output id="ExperimentalVariable1FileTask_1.Output" name="Output" description="This is a test data from the Buckner study. Subject 1 single runA." required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Text file" extension="txt" description="Text file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="Text file" extension="txt" description="Text file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/Master_Pipe/FMRI/FSF_Design_And_Experimental_Variable_Files/task.txt</value>
+                        </values>
+                </dataModule>
+                <dataModule id="ExperimentalVariable2FileRest_1" name="Experimental Variable 2 File (Rest)" package="fMRI" version="1.0" description="This is a test data from the Buckner study. Subject 1 single runA." posX="22" posY="360" rotation="1" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Jun 24 15:17:37 PDT 2009" />
+                        </metadata>
+                        <output id="ExperimentalVariable2FileRest_1.Output" name="Output" description="This is a test data from the Buckner study. Subject 1 single runA." required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Text file" extension="txt" description="Text file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="Text file" extension="txt" description="Text file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/Master_Pipe/FMRI/FSF_Design_And_Experimental_Variable_Files/rest.txt</value>
+                        </values>
+                </dataModule>
+                <module id="AppendFEATSuffix_1" name="Append FEAT Suffix" posX="1016" posY="1313" sourceCode="" location="pipeline://localhost//bin/echo">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Apr 04 15:56:30 PDT 2013" />
+                        </metadata>
+                        <input id="AppendFEATSuffix_1.featoutputdirectorybasename" name="feat output directory basename" required="true" enabled="true" order="0">
+                                <format type="Directory" cardinality="1" />
+                        </input>
+                        <output id="AppendFEATSuffix_1.featoutputdirectorywithsuffix" name="feat output directory with suffix" required="true" enabled="true" order="1" includeTransformedParameter="false">
+                                <format type="Directory" cardinality="1" transformationBase="feat output directory basename">
+                                        <transform order="0" operation="Append">.feat</transform>
+                                </format>
+                        </output>
+                        <input id="AppendFEATSuffix_1.flowcontrolinput" name="flow control input" required="true" enabled="true" order="2">
+                                <format type="Flow Control" cardinality="1" />
+                        </input>
+                </module>
+                <dataModule id="FSFCheck_1" name="FSF Check" posX="1437" posY="998" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Apr 03 12:30:55 EDT 2013" />
+                        </metadata>
+                        <input id="FSFCheck_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/DICOM/LIFESPANS9/FMRI/check.fsf/check.fsf</value>
+                        </values>
+                </dataModule>
+                <dataModule id="FSL.fsfDesignFile_1" name="FSL .fsf Design File" package="fMRI" version="1.0" posX="595" posY="6" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Sun Jun 21 10:17:38 PDT 2009" />
+                        </metadata>
+                        <output id="FSL.fsfDesignFile_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="FSF file" extension="fsf" description="FSL's feat input" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="FSF file" extension="fsf" description="FSL's feat input" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/EXAMPLE+.feat/design.fsf</value>
+                        </values>
+                </dataModule>
+                <dataModule id="SkullStrippedOutput_1" name="Skull Stripped Output" posX="1372" posY="572" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Apr 09 12:55:48 EDT 2013" />
+                        </metadata>
+                        <input id="SkullStrippedOutput_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/DICOM/LIFESPANS9/FMRI/skull_stripped/skull_stripped_image.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="MNIAtlasSpace_1" name="MNI Atlas Space" package="LONI" version="1.0" posX="14" posY="477" rotation="1" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Jun 24 22:07:09 PDT 2009" />
+                        </metadata>
+                        <output id="MNIAtlasSpace_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://medulla.loni.ucla.edu/LONI/data/Atlases/MNI/MNI152_T1_2mm_brain.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="4D_DataOutput_1" name="4D_Data Output " posX="397" posY="182" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Apr 18 09:15:52 EDT 2013" />
+                        </metadata>
+                        <input id="4D_DataOutput_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/DICOM/LIFESPANS9/FMRI/4D/4D_image.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="FEATOutputDirectory_1" name="FEAT Output Directory" posX="1454" posY="1415" rotation="1" sourceCode="" type="Directory" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Apr 05 10:30:32 PDT 2013" />
+                        </metadata>
+                        <input id="FEATOutputDirectory_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="Directory" cardinality="1" />
+                        </input>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/DICOM/LIFESPANS9/FMRI</value>
+                        </values>
+                </dataModule>
+                <module id="FSFUpdate_1" name="FSFUpdate" package="FSL" version="4.1.4" description="This module is used to update the already existing design.fsf file. One could add additional experimental variables and or overwrite the T1 image, 3D images etc." posX="1023" posY="905" sourceCode="" location="pipeline://medulla.loni.ucla.edu/java" executableVersion="4.1.4">
+                        <tag>fMRI</tag>
+                        <tag>design update</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/feat5/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Jun 23 16:40:21 PDT 2009" />
+                        </metadata>
+                        <input id="FSFUpdate_1.TemplateFSFDesignFile" name="Template FSF Design File" required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="FSF file" extension="fsf" description="FSL's feat input" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="FSFUpdate_1.UpdatedFSFDesignFile" name="Updated FSF Design File" required="true" enabled="true" order="2">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="FSF file" extension="fsf" description="FSL's feat input" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="FSFUpdate_1.OutputDirectory" name="Output Directory" required="true" enabled="true" order="3" prefix="-fmri_outputdir" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Directory" cardinality="1" />
+                        </output>
+                        <input id="FSFUpdate_1.4DImageFilename" name="4D Image Filename" required="false" enabled="true" order="4" prefix="-feat_files" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSFUpdate_1.StandardSpaceFilename" name="Standard Space Filename" required="false" enabled="true" order="6" prefix="-fmri_regstandard" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSFUpdate_1.SubjectHighResolutionAnatomicalFilename" name="Subject High Resolution Anatomical Filename" required="false" enabled="true" order="7" prefix="-initial_highres_files" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                                <filetype name="Analyze Image 3D" extension="img" description="Analyze Image 3D file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSFUpdate_1.SubjectStructuralImageforAnalysis" name="Subject Structural Image for Analysis" required="false" enabled="true" order="8" prefix="-highres_files" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                                <filetype name="Analyze Image 3D" extension="img" description="Analyze Image 3D file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSFUpdate_1.ExperimentalVariable1Filename" name="Experimental Variable 1 Filename" required="false" enabled="true" order="9" prefix="-fmri_custom1" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSFUpdate_1.ExperimentalVariable2Filename" name="Experimental Variable 2 Filename" required="false" enabled="true" order="10" prefix="-fmri_custom2" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSFUpdate_1.NuumberofTRs" name="Nuumber of TRs" required="false" enabled="true" order="5" prefix="-fmri_npts" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSFUpdate_1.FSFUpdateJar" name="FSF Update Jar" required="true" enabled="true" order="0" prefix="-jar" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="JAR" extension="jar" description="Sun JAR file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://medulla.loni.ucla.edu/bin/FSFUpdate.jar</value>
+                                </values>
+                        </input>
+                        <license>http://www.fmrib.ox.ac.uk/fsl/fsl/licence.html
+
+LICENCE
+
+FMRIB Software Library, Release 4.1 (c) 2008, The University of Oxford
+(the "Software")
+
+The Software remains the property of the University of Oxford ("the
+University").
+
+The Software is distributed "AS IS" under this Licence solely for
+non-commercial use in the hope that it will be useful, but in order
+that the University as a charitable foundation protects its assets for
+the benefit of its educational and research purposes, the University
+makes clear that no condition is made or to be implied, nor is any
+warranty given or to be implied, as to the accuracy of the Software,
+or that it will be suitable for any particular purpose or for use
+under any specific conditions. Furthermore, the University disclaims
+all responsibility for the use which is made of the Software. It
+further disclaims any liability for the outcomes arising from using
+the Software.
+
+The Licensee agrees to indemnify the University and hold the
+University harmless from and against any and all claims, damages and
+liabilities asserted by third parties (including claims for
+negligence) which arise directly or indirectly from the use of the
+Software or the sale of any products based on the Software.
+
+No part of the Software may be reproduced, modified, transmitted or
+transferred in any form or by any means, electronic or mechanical,
+without the express permission of the University. The permission of
+the University is not required if the said reproduction, modification,
+transmission or transference is done without financial return, the
+conditions of this Licence are imposed upon the receiver of the
+product, and all original and amended source code is included in any
+transmitted product. You may be held legally responsible for any
+copyright infringement that is caused or encouraged by your failure to
+abide by these terms and conditions.
+
+You are not permitted under this Licence to use this Software
+commercially. Use for which any financial return is received shall be
+defined as commercial use, and includes (1) integration of all or part
+of the source code or the Software into a product for sale or license
+by or on behalf of Licensee to third parties or (2) use of the
+Software or any derivative of it for research with the final aim of
+developing software products for sale or license to a third party or
+(3) use of the Software or any derivative of it for research with the
+final aim of developing non-software products for sale or license to a
+third party, or (4) use of the Software to provide any service to an
+external organisation for which payment is received. If you are
+interested in using the Software commercially, please contact Isis
+Innovation Limited ("Isis"), the technology transfer company of the
+University, to negotiate a licence. Contact details are:
+innovation@isis.ox.ac.uk quoting reference BS/3497.
+
+
+-------------------------------------------------------------------
+
+The Standard Space Atlases
+
+The Cerebellum, Harvard-Oxford, JHU, Juelich and Thalamus atlases, whilst not
+being the property of Oxford, are released under the terms of the
+main FSL licence above, at the request of their owners. These atlases
+should therefore not be used for commercial purposes; for such
+purposes please contact the primary co-ordinator for the relevant
+atlas:
+
+Harvard-Oxford: steve@fmrib.ox.ac.uk
+JHU: susumu@mri.jhu.edu
+Juelich: S.Eickhoff@fz-juelich.de
+Thalamus: behrens@fmrib.ox.ac.uk
+Cerebellum: j.diedrichsen@bangor.ac.uk
+
+-------------------------------------------------------------------
+
+FSLView
+
+FSLView sources are released under the terms of the GPL
+(http://www.gnu.org/copyleft/gpl.html). FSLView binaries use Qt
+(http://www.trolltech.com) which is released under GPL for X11.  The
+FSLView binaries are released under the GPL, with the added exception
+that we also give permission to link this program with the Qt
+non-commercial edition, and distribute the resulting executable,
+without including the source code for the Qt non-commercial edition in
+the source distribution.
+
+FSLView is distributed "AS IS" under this Licence in the hope that it
+will be useful, but in order that the University as a charitable
+foundation protects its assets for the benefit of its educational and
+research purposes, the University makes clear that no condition is
+made or to be implied, nor is any warranty given or to be implied, as
+to the accuracy of the Software, or that it will be suitable for any
+particular purpose or for use under any specific conditions.
+Furthermore, the University disclaims all responsibility for the use
+which is made of the Software. It further disclaims any liability for
+the outcomes arising from using the Software.</license>
+                </module>
+                <module id="BiasFieldCorrector_1" name="Bias Field Corrector" package="BrainSuite11a" version="11a" description="Bias Field Corrector: Computes local estimates of gain variation in the iimage using an adaptive partial volume tissue model. Uses the estimates to compute a tri-cubic B-spline. Corrects the extracted barin image using values of the spline&#xA;&#xA;" posX="926" posY="160" sourceCode="" location="pipeline://medulla.loni.ucla.edu/bfc11a_x86_64-redhat-linux-gnu" executableVersion="11a">
+                        <authors>
+                                <author fullName="Alen Zamanyan" email="" website="" />
+                                <author fullName="Sam Hobel" email="" website="" />
+                                <author fullName="Alex Genco" email="" website="" />
+                        </authors>
+                        <citations>
+                                <citation>Shattuck DW, Sandor-Leahy SR, Schaper KA, Rottenberg DA, and Leahy RM, (2001) "Magnetic Resonance Image Tissue Classification Using a Partial Volume Model", Neuroimage 13(5):856-876
+PMID: 11304082</citation>
+                        </citations>
+                        <tag>bias field correction</tag>
+                        <tag>inhomogeneity correction</tag>
+                        <uri>http://www.loni.ucla.edu/~shattuck</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon May 16 11:53:37 PDT 2011" />
+                        </metadata>
+                        <input id="BiasFieldCorrector_1.InputFile" name="Input File" description="The filename of the input MRI file in Analyze format." required="true" enabled="true" order="0" prefix="-i" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="BiasFieldCorrector_1.OutputFile" name="Output File" description="The filename for the corrected file." required="true" enabled="true" order="1" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="BiasFieldCorrector_1.MaskFile" name="Mask File" description="mask the input image with the file &lt;maskfile&gt;" required="false" enabled="false" order="2" prefix="-m" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image 3D" extension="img" description="Analyze Image 3D file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="BiasFieldCorrector_1.HistogramRadius" name="Histogram Radius" description="histogram radius (voxels) [default: 12]" required="false" enabled="false" order="5" prefix="-r" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.BiasSampleSpacing" name="Bias Sample Spacing" description="bias sample spacing (voxels) [default: 16]" required="false" enabled="false" order="6" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.ControlPointSpacing" name="Control Point Spacing" description="control point spacing (voxels) [default: 64]" required="false" enabled="false" order="7" prefix="-c" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.SplineStiffnessWeighting" name="Spline Stiffness Weighting" description="spline stiffness weighting parameter [default: 1e-04]" required="false" enabled="false" order="8" prefix="-w" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.Minimumallowedbiasestimate" name="Minimum allowed bias estimate" description="Minimum allowed bias value (default 0.9)" required="false" enabled="false" order="13" prefix="-L" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.Maximumallowedbiasestimate" name="Maximum allowed bias estimate" description="maximum allowed bias estimate (default 1.1)" required="false" enabled="false" order="14" prefix="-U" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <output id="BiasFieldCorrector_1.MaskedBiasOutput" name="Masked Bias Output" description="specify masked bias field estimate output path" required="false" enabled="false" order="4" prefix="--maskedbias" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="BiasFieldCorrector_1.Ellipse" name="Ellipse" description="use ellipsoid for ROI histogram" required="false" enabled="false" order="9" prefix="--ellipse" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.Block" name="Block" description="Use block for ROI histogram" required="false" enabled="false" order="10" prefix="--block" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.IterativeMode" name="Iterative Mode" description="iterative mode (overrides all other settings)" required="false" enabled="false" order="11" prefix="--iterate" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.ApplyCorrectionField" name="Apply Correction Field" description="apply correction field to entire volume" required="false" enabled="false" order="12" prefix="--extrapolate" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.SmallBiasModel" name="Small Bias Model" description="small bias model [0.95,1.05]" required="false" enabled="false" order="15" prefix="--low" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.MediumBiasModel" name="Medium Bias Model" description="medium bias model [0.90,1.10]" required="false" enabled="false" order="16" prefix="--medium" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.HighBiasModel" name="High Bias Model" description="high bias model [0.80,1.20]" required="false" enabled="false" order="17" prefix="--high" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="BiasFieldCorrector_1.Verbosity" name="Verbosity" description="verbosity level (0=silent) [default: 1]" required="false" enabled="false" order="19" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>0</enumeration>
+                                        <enumeration>1</enumeration>
+                                </format>
+                                <values>
+                                        <value>1</value>
+                                </values>
+                        </input>
+                        <input id="BiasFieldCorrector_1.ShowTiming" name="Show Timing" description="Display timing information" required="false" enabled="false" order="20" prefix="--timer" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <output id="BiasFieldCorrector_1.BiasOutput" name="Bias Output" description="save bias field estimate" required="false" enabled="false" order="3" prefix="--bias" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="BiasFieldCorrector_1.BiasEstimateConvergencethreshold" name="Bias Estimate Convergence threshold" description="bias estimate convergence threshold. (values &gt; 0.1 disable) [default: 0]&#xA;" required="false" enabled="false" order="18" prefix="--beps bias_epsilon" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="David Shattuck" email="" website="" />
+                        </executableAuthors>
+                        <license>http://www.loni.ucla.edu/Software/license.php
+
+By registering for downloads from the UCLA Laboratory of Neuro Imaging, you are agreeing to the following terms and conditions as well as to the Terms of Use of the LONI website. To view the LONI website's Terms of Use go to, http://www.loni.ucla.edu/software/termsofuse.php.
+
+    * Permission is granted to use this software without charge for non-commercial research purposes only.
+    * Other than the rights granted herein, LONI retains all rights, title, and interest in LONI software and Technology, and You retain all rights, title, and interest in Your Modifications and associated specifications, subject to the terms of this License.
+    * You may make verbatim copies of this software for personal use, or for use within your organization, provided that you duplicate all of the original copyright notices and associated disclaimers. If you provide the use of the software to other users within your organization, they also must comply with all the terms of this Software Distribution Agreement.
+    * YOU MAY NOT DISTRIBUTE COPIES of this software, or copies of software derived from this software, to others outside your organization without specific prior written permission from the UCLA Laboratory of Neuro Imaging, except where noted for specific software products.
+    * You must not remove or alter any copyright or other proprietary notices in the software.
+    * Software has not been reviewed or approved by the Food and Drug Administration, and is for non-clinical, IRB-approved Research Use Only. In no event shall data or images generated through the use of the Software be used in the provision of patient care.
+    * THE SOFTWARE IS PROVIDED "AS IS," AND THE UNIVERSITY OF CALIFORNIA AND ITS COLLABORATORS DO NOT MAKE ANY WARRANTY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, NOR DO THEY ASSUME ANY LIABILITY OR RESPONSIBILITY FOR THE USE OF THIS SOFTWARE.
+    * This software is for research purposes only and has not been approved for clinical use.
+    * You may publish papers and books using results produced using software provided by this site provided that you reference the appropriate citations. A list of citations is available here.
+    * You agree to comply with LONI's Trademark Usage Requirements, as modified from time to time, described in the "Use of Materials Limitations" section of the LONI Terms of Use Agreement. Except as expressly provided in this License, you are granted no rights in or to any LONI trademarks now or hereafter used or licensed by LONI.
+    * All Technology and technical data delivered under this Agreement are subject to US export control laws and may be subject to export or import regulations in other countries. You agree to comply strictly with all such laws and regulations and acknowledge that you have the responsibility to obtain such licenses to export, re-export, or import as may be required after delivery to you.</license>
+                </module>
+                <module id="smartline_T1AnatomicalImages3DCompressedNifti_BiasFi_1" name="smartline_T1 Anatomical Images (3D Compressed Nifti)_Bias Fi" package="Pipeline Utilities" description="Smartline conversion from type (nii.gz) of module T1 Anatomical Images (3D Compressed Nifti) to type (img,hdr) of module Bias Field Corrector of package BrainSuite11a" posX="952" posY="101" sourceCode="" location="pipeline://medulla.loni.ucla.edu/java" smartModule="true" gridVariables="h_vmem=4.5">
+                        <input id="smartline_T1AnatomicalImages3DCompressedNifti_BiasFi_1.jarfile" name="jar file" required="false" enabled="true" predefined="true" order="0" prefix="-Djava.awt.headless=true -Xmx2500m -jar" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="JAR" extension="jar" description="Sun JAR file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://medulla.loni.ucla.edu/smartline/Smartline.jar</value>
+                                </values>
+                        </input>
+                        <input id="smartline_T1AnatomicalImages3DCompressedNifti_BiasFi_1.smartlineinput" name="smartline input" required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="smartline_T1AnatomicalImages3DCompressedNifti_BiasFi_1.softwarename" name="software name" required="false" enabled="true" predefined="true" order="2">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>BrainSuite11a</value>
+                                </values>
+                        </input>
+                        <output id="smartline_T1AnatomicalImages3DCompressedNifti_BiasFi_1.smartlineoutput" name="smartline output" required="false" enabled="true" order="3">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </module>
+                <module id="soft-linking_1" name="soft-linking" package="SSMA" version="1.0.1" description="create soft-link(s) for input files;&#xA;to get away from AIR package filename too long problem. " posX="1051" posY="269" rotation="1" sourceCode="" location="pipeline://medulla.loni.ucla.edu/soft-linking.sh">
+                        <uri>http://www.loni.ucla.edu/~kleung/meta-algo/ssma/</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Mar 10 12:30:19 PST 2010" />
+                        </metadata>
+                        <input id="soft-linking_1.in" name="in" required="true" enabled="true" order="0" prefix="-i" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="soft-linking_1.out" name="out" required="true" enabled="true" order="1" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Kelvin Leung" email="kelvin@cs.ucla.edu" website="" />
+                        </executableAuthors>
+                        <license>http://www.loni.ucla.edu/Software/license.php
+
+By registering for downloads from the UCLA Laboratory of Neuro Imaging, you are agreeing to the following terms and conditions as well as to the Terms of Use of the LONI website. To view the LONI website's Terms of Use go to, http://www.loni.ucla.edu/software/termsofuse.php.
+
+    * Permission is granted to use this software without charge for non-commercial research purposes only.
+    * Other than the rights granted herein, LONI retains all rights, title, and interest in LONI software and Technology, and You retain all rights, title, and interest in Your Modifications and associated specifications, subject to the terms of this License.
+    * You may make verbatim copies of this software for personal use, or for use within your organization, provided that you duplicate all of the original copyright notices and associated disclaimers. If you provide the use of the software to other users within your organization, they also must comply with all the terms of this Software Distribution Agreement.
+    * YOU MAY NOT DISTRIBUTE COPIES of this software, or copies of software derived from this software, to others outside your organization without specific prior written permission from the UCLA Laboratory of Neuro Imaging, except where noted for specific software products.
+    * You must not remove or alter any copyright or other proprietary notices in the software.
+    * Software has not been reviewed or approved by the Food and Drug Administration, and is for non-clinical, IRB-approved Research Use Only. In no event shall data or images generated through the use of the Software be used in the provision of patient care.
+    * THE SOFTWARE IS PROVIDED "AS IS," AND THE UNIVERSITY OF CALIFORNIA AND ITS COLLABORATORS DO NOT MAKE ANY WARRANTY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, NOR DO THEY ASSUME ANY LIABILITY OR RESPONSIBILITY FOR THE USE OF THIS SOFTWARE.
+    * This software is for research purposes only and has not been approved for clinical use.
+    * You may publish papers and books using results produced using software provided by this site provided that you reference the appropriate citations. A list of citations is available here.
+    * You agree to comply with LONI's Trademark Usage Requirements, as modified from time to time, described in the "Use of Materials Limitations" section of the LONI Terms of Use Agreement. Except as expressly provided in this License, you are granted no rights in or to any LONI trademarks now or hereafter used or licensed by LONI.
+    * All Technology and technical data delivered under this Agreement are subject to US export control laws and may be subject to export or import regulations in other countries. You agree to comply strictly with all such laws and regulations and acknowledge that you have the responsibility to obtain such licenses to export, re-export, or import as may be required after delivery to you.</license>
+                </module>
+                <module id="SSMA_1" name="SSMA" package="SSMA" version="1.0.1" description="SSMA - Skull Stripping Meta Algorithm&#xA;&#xA;[ FOR INTERNAL TESTING PURPOSE ONLY @ UCLA LONI ]" posX="1239" posY="387" sourceCode="" location="pipeline://medulla.loni.ucla.edu/ssma_irma_uni_node.sh" gridVariables="h_vmem=8">
+                        <authors>
+                                <author fullName="Kelvin Leung" email="kelvin@cs.ucla.edu" website="" />
+                                <author fullName="D. Stott Parker" email="stott@cs.ucla.edu" website="" />
+                        </authors>
+                        <uri>http://www.loni.ucla.edu/~kleung/meta-algo/ssma/</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jan 16 08:57:42 PST 2009" />
+                        </metadata>
+                        <output id="SSMA_1.out" name="out" description="skull stripped output file in analyze format. " required="true" enabled="true" order="2" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="SSMA_1.in" name="in" description="input file: non skull stripped analyze formated file" required="true" enabled="true" order="0" prefix="-i" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="SSMA_1.ref" name="ref" description="reference file in analyze format. &#xA;&#xA;It is used to obtain the optimal output from SSMA. Typically, it is a ICBM skull stripped image or AZ ICBM atlas, which is available from UCLA LONI website.&#xA;" required="true" enabled="true" order="1" prefix="-r" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Kelvin Leung" email="kelvin@cs.ucla.edu" website="" />
+                                <author fullName="D. Stott. Parker" email="stott@cs.ucla.edu" website="" />
+                        </executableAuthors>
+                        <license>http://www.loni.ucla.edu/Software/license.php
+
+By registering for downloads from the UCLA Laboratory of Neuro Imaging, you are agreeing to the following terms and conditions as well as to the Terms of Use of the LONI website. To view the LONI website's Terms of Use go to, http://www.loni.ucla.edu/software/termsofuse.php.
+
+    * Permission is granted to use this software without charge for non-commercial research purposes only.
+    * Other than the rights granted herein, LONI retains all rights, title, and interest in LONI software and Technology, and You retain all rights, title, and interest in Your Modifications and associated specifications, subject to the terms of this License.
+    * You may make verbatim copies of this software for personal use, or for use within your organization, provided that you duplicate all of the original copyright notices and associated disclaimers. If you provide the use of the software to other users within your organization, they also must comply with all the terms of this Software Distribution Agreement.
+    * YOU MAY NOT DISTRIBUTE COPIES of this software, or copies of software derived from this software, to others outside your organization without specific prior written permission from the UCLA Laboratory of Neuro Imaging, except where noted for specific software products.
+    * You must not remove or alter any copyright or other proprietary notices in the software.
+    * Software has not been reviewed or approved by the Food and Drug Administration, and is for non-clinical, IRB-approved Research Use Only. In no event shall data or images generated through the use of the Software be used in the provision of patient care.
+    * THE SOFTWARE IS PROVIDED "AS IS," AND THE UNIVERSITY OF CALIFORNIA AND ITS COLLABORATORS DO NOT MAKE ANY WARRANTY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, NOR DO THEY ASSUME ANY LIABILITY OR RESPONSIBILITY FOR THE USE OF THIS SOFTWARE.
+    * This software is for research purposes only and has not been approved for clinical use.
+    * You may publish papers and books using results produced using software provided by this site provided that you reference the appropriate citations. A list of citations is available here.
+    * You agree to comply with LONI's Trademark Usage Requirements, as modified from time to time, described in the "Use of Materials Limitations" section of the LONI Terms of Use Agreement. Except as expressly provided in this License, you are granted no rights in or to any LONI trademarks now or hereafter used or licensed by LONI.
+    * All Technology and technical data delivered under this Agreement are subject to US export control laws and may be subject to export or import regulations in other countries. You agree to comply strictly with all such laws and regulations and acknowledge that you have the responsibility to obtain such licenses to export, re-export, or import as may be required after delivery to you.</license>
+                </module>
+                <module id="smartline_SSMA_SkullStrippedOutput_1" name="smartline_SSMA_Skull Stripped Output" package="Pipeline Utilities" description="Smartline conversion from type (img,hdr) of module SSMA to type (nii.gz) of module Skull Stripped Output" posX="1313" posY="530" sourceCode="" location="pipeline://medulla.loni.ucla.edu/java" smartModule="true" gridVariables="h_vmem=4.5">
+                        <input id="smartline_SSMA_SkullStrippedOutput_1.jarfile" name="jar file" required="false" enabled="true" predefined="true" order="0" prefix="-Djava.awt.headless=true -Xmx2500m -jar" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="JAR" extension="jar" description="Sun JAR file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://medulla.loni.ucla.edu/smartline/Smartline.jar</value>
+                                </values>
+                        </input>
+                        <input id="smartline_SSMA_SkullStrippedOutput_1.smartlineinput" name="smartline input" required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="smartline_SSMA_SkullStrippedOutput_1.softwarename" name="software name" required="false" enabled="true" predefined="true" order="2">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>General</value>
+                                </values>
+                        </input>
+                        <output id="smartline_SSMA_SkullStrippedOutput_1.smartlineoutput" name="smartline output" required="false" enabled="true" order="3">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </module>
+                <module id="smartline_SSMA_FSFUpdate_1" name="smartline_SSMA_FSFUpdate" package="Pipeline Utilities" description="Smartline conversion from type (img,hdr) of module SSMA to type (img,hdr) of module FSFUpdate of package FSL" posX="1202" posY="678" sourceCode="" location="pipeline://medulla.loni.ucla.edu/java" smartModule="true" gridVariables="h_vmem=4.5">
+                        <input id="smartline_SSMA_FSFUpdate_1.jarfile" name="jar file" required="false" enabled="true" predefined="true" order="0" prefix="-Djava.awt.headless=true -Xmx2500m -jar" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="JAR" extension="jar" description="Sun JAR file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://medulla.loni.ucla.edu/smartline/Smartline.jar</value>
+                                </values>
+                        </input>
+                        <input id="smartline_SSMA_FSFUpdate_1.smartlineinput" name="smartline input" required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="smartline_SSMA_FSFUpdate_1.softwarename" name="software name" required="false" enabled="true" predefined="true" order="2">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>FSL</value>
+                                </values>
+                        </input>
+                        <output id="smartline_SSMA_FSFUpdate_1.smartlineoutput" name="smartline output" required="false" enabled="true" order="3">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image 3D" extension="img" description="Analyze Image 3D file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </module>
+                <module id="smartline_SSMA_FSFUpdate_2" name="smartline_SSMA_FSFUpdate" package="Pipeline Utilities" description="Smartline conversion from type (img,hdr) of module SSMA to type (img,hdr) of module FSFUpdate of package FSL" posX="1212" posY="678" sourceCode="" location="pipeline://medulla.loni.ucla.edu/java" smartModule="true" gridVariables="h_vmem=4.5">
+                        <input id="smartline_SSMA_FSFUpdate_2.jarfile" name="jar file" required="false" enabled="true" predefined="true" order="0" prefix="-Djava.awt.headless=true -Xmx2500m -jar" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="JAR" extension="jar" description="Sun JAR file" />
+                                        </fileTypes>
+                                </format>
+                                <values>
+                                        <value>pipeline://medulla.loni.ucla.edu/smartline/Smartline.jar</value>
+                                </values>
+                        </input>
+                        <input id="smartline_SSMA_FSFUpdate_2.smartlineinput" name="smartline input" required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="smartline_SSMA_FSFUpdate_2.softwarename" name="software name" required="false" enabled="true" predefined="true" order="2">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>FSL</value>
+                                </values>
+                        </input>
+                        <output id="smartline_SSMA_FSFUpdate_2.smartlineoutput" name="smartline output" required="false" enabled="true" order="3">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image 3D" extension="img" description="Analyze Image 3D file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </module>
+                <dataModule id="SSatlasreference_1" name="SS atlas reference" package="ICBM" version="1.0" posX="1282" posY="182" sourceCode="" type="File" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jul 18 10:34:47 PDT 2008" />
+                        </metadata>
+                        <output id="SSatlasreference_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                        <need>hdr</need>
+                                </filetype>
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://medulla.loni.ucla.edu/ICBM_SS.img</value>
+                        </values>
+                </dataModule>
+                <module id="FSLMergenii.gz_1" name="FSLMerge (nii.gz)" package="FSL" version="4.1.4" description="Concatenate image files into a single output. This concatenation can be in time, or in X, Y or Z. All image dimensions (except for the one being concatenated over) must be the same in all input images. For example, this can be used to take multiple 3D files (eg as output by SPM) and create a single 4D image file." posX="134" posY="95" sourceCode="" location="pipeline://medulla.loni.ucla.edu/fslmerge" executableVersion="4.1.4">
+                        <authors>
+                                <author fullName="Stephen Tabaquin" email="tabaquin@ucla.edu " website="http://loni.ucla.edu " />
+                        </authors>
+                        <citations>
+                                <citation>S.M. Smith, M. Jenkinson, M.W. Woolrich, C.F. Beckmann, T.E.J. Behrens, H. Johansen-Berg, P.R. Bannister, M. De Luca, I. Drobnjak, D.E. Flitney, R. Niazy, J. Saunders, J. Vickers, Y. Zhang, N. De Stefano, J.M. Brady, and P.M. Matthews. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage, 23(S1):208-219, 2004
+
+PMID: 15501092</citation>
+                        </citations>
+                        <tag>concatenate</tag>
+                        <tag>4D</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/avwutils/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Jul 10 17:50:22 PDT 2007" />
+                        </metadata>
+                        <input id="FSLMergenii.gz_1.ConcatenationType" name="Concatenation Type" description="Specify the type of concatenation to be applied.&#xA;The following can be chosen:&#xA;-x: concatenate images in the x direction.&#xA;-y: concatenate images in the y direction.&#xA;-z: concatenate images in the z direction.&#xA;-t : concatenate images in time.&#xA;-a: auto-choose: single slices -&gt; volume, volumes -&gt; 4D (time series)" required="true" enabled="true" order="0">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>-x</enumeration>
+                                        <enumeration>-y</enumeration>
+                                        <enumeration>-z</enumeration>
+                                        <enumeration>-t</enumeration>
+                                        <enumeration>-a</enumeration>
+                                </format>
+                                <values>
+                                        <value>-a</value>
+                                </values>
+                        </input>
+                        <output id="FSLMergenii.gz_1.OutputFile" name="Output File" description="Specifies the output file path." required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="FSLMergenii.gz_1.InputFiles" name="Input File(s)" description="Specifies the input file path.  An infinite number of inputs may be specified." required="true" enabled="true" order="2">
+                                <format type="File" cardinality="-1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Mark Jenkinson" email="mark@fmrib.ox.ac.uk" website="http://users.fmrib.ox.ac.uk/~mark/ " />
+                                <author fullName="Steve Smith" email="steve@fmrib.ox.ac.uk" website="http://www.fmrib.ox.ac.uk/Members/steve " />
+                        </executableAuthors>
+                        <license>http://www.fmrib.ox.ac.uk/fsl/fsl/licence.html
+
+LICENCE
+
+FMRIB Software Library, Release 4.1 (c) 2008, The University of Oxford
+(the "Software")
+
+The Software remains the property of the University of Oxford ("the
+University").
+
+The Software is distributed "AS IS" under this Licence solely for
+non-commercial use in the hope that it will be useful, but in order
+that the University as a charitable foundation protects its assets for
+the benefit of its educational and research purposes, the University
+makes clear that no condition is made or to be implied, nor is any
+warranty given or to be implied, as to the accuracy of the Software,
+or that it will be suitable for any particular purpose or for use
+under any specific conditions. Furthermore, the University disclaims
+all responsibility for the use which is made of the Software. It
+further disclaims any liability for the outcomes arising from using
+the Software.
+
+The Licensee agrees to indemnify the University and hold the
+University harmless from and against any and all claims, damages and
+liabilities asserted by third parties (including claims for
+negligence) which arise directly or indirectly from the use of the
+Software or the sale of any products based on the Software.
+
+No part of the Software may be reproduced, modified, transmitted or
+transferred in any form or by any means, electronic or mechanical,
+without the express permission of the University. The permission of
+the University is not required if the said reproduction, modification,
+transmission or transference is done without financial return, the
+conditions of this Licence are imposed upon the receiver of the
+product, and all original and amended source code is included in any
+transmitted product. You may be held legally responsible for any
+copyright infringement that is caused or encouraged by your failure to
+abide by these terms and conditions.
+
+You are not permitted under this Licence to use this Software
+commercially. Use for which any financial return is received shall be
+defined as commercial use, and includes (1) integration of all or part
+of the source code or the Software into a product for sale or license
+by or on behalf of Licensee to third parties or (2) use of the
+Software or any derivative of it for research with the final aim of
+developing software products for sale or license to a third party or
+(3) use of the Software or any derivative of it for research with the
+final aim of developing non-software products for sale or license to a
+third party, or (4) use of the Software to provide any service to an
+external organisation for which payment is received. If you are
+interested in using the Software commercially, please contact Isis
+Innovation Limited ("Isis"), the technology transfer company of the
+University, to negotiate a licence. Contact details are:
+innovation@isis.ox.ac.uk quoting reference BS/3497.</license>
+                </module>
+                <module id="FSLFEAT_1" name="FSL FEAT" package="FSL" version="4.1.4" description="FEAT is a software tool for high quality model-based FMRI data analysis, with an easy-to-use graphical user interface (GUI). FEAT is part of FSL (FMRIB's Software Library). FEAT automates as many of the analysis decisions as possible, and allows easy (though still robust, efficient and valid) analysis of simple experiments whilst giving enough flexibility to also allow sophisticated analysis of the most complex experiments." posX="965" posY="1052" sourceCode="" location="pipeline://medulla.loni.ucla.edu/feat_pipeline" executableVersion="4.1.4" gridVariables="h_vmem=8;h_stack=128">
+                        <citations>
+                                <citation>S.M. Smith, M. Jenkinson, M.W. Woolrich, C.F. Beckmann, T.E.J. Behrens, H. Johansen-Berg, P.R. Bannister, M. De Luca, I. Drobnjak, D.E. Flitney, R. Niazy, J. Saunders, J. Vickers, Y. Zhang, N. De Stefano, J.M. Brady, and P.M. Matthews. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage, 23(S1):208-219, 2004
+
+PMID: 15501092</citation>
+                        </citations>
+                        <tag>fMRI</tag>
+                        <tag>data analysis</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/feat5/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Jun 23 16:42:29 PDT 2009" />
+                        </metadata>
+                        <input id="FSLFEAT_1.FSFDesignInputFilename" name="FSF Design Input Filename" required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="FSF file" extension="fsf" description="FSL's feat input" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="FSLFEAT_1.flowcontrol" name="flow control" required="true" enabled="true" order="1">
+                                <format type="Flow Control" cardinality="1" />
+                        </output>
+                        <license>http://www.fmrib.ox.ac.uk/fsl/fsl/licence.html
+
+LICENCE
+
+FMRIB Software Library, Release 4.1 (c) 2008, The University of Oxford
+(the "Software")
+
+The Software remains the property of the University of Oxford ("the
+University").
+
+The Software is distributed "AS IS" under this Licence solely for
+non-commercial use in the hope that it will be useful, but in order
+that the University as a charitable foundation protects its assets for
+the benefit of its educational and research purposes, the University
+makes clear that no condition is made or to be implied, nor is any
+warranty given or to be implied, as to the accuracy of the Software,
+or that it will be suitable for any particular purpose or for use
+under any specific conditions. Furthermore, the University disclaims
+all responsibility for the use which is made of the Software. It
+further disclaims any liability for the outcomes arising from using
+the Software.
+
+The Licensee agrees to indemnify the University and hold the
+University harmless from and against any and all claims, damages and
+liabilities asserted by third parties (including claims for
+negligence) which arise directly or indirectly from the use of the
+Software or the sale of any products based on the Software.
+
+No part of the Software may be reproduced, modified, transmitted or
+transferred in any form or by any means, electronic or mechanical,
+without the express permission of the University. The permission of
+the University is not required if the said reproduction, modification,
+transmission or transference is done without financial return, the
+conditions of this Licence are imposed upon the receiver of the
+product, and all original and amended source code is included in any
+transmitted product. You may be held legally responsible for any
+copyright infringement that is caused or encouraged by your failure to
+abide by these terms and conditions.
+
+You are not permitted under this Licence to use this Software
+commercially. Use for which any financial return is received shall be
+defined as commercial use, and includes (1) integration of all or part
+of the source code or the Software into a product for sale or license
+by or on behalf of Licensee to third parties or (2) use of the
+Software or any derivative of it for research with the final aim of
+developing software products for sale or license to a third party or
+(3) use of the Software or any derivative of it for research with the
+final aim of developing non-software products for sale or license to a
+third party, or (4) use of the Software to provide any service to an
+external organisation for which payment is received. If you are
+interested in using the Software commercially, please contact Isis
+Innovation Limited ("Isis"), the technology transfer company of the
+University, to negotiate a licence. Contact details are:
+innovation@isis.ox.ac.uk quoting reference BS/3497.
+
+
+-------------------------------------------------------------------
+
+The Standard Space Atlases
+
+The Cerebellum, Harvard-Oxford, JHU, Juelich and Thalamus atlases, whilst not
+being the property of Oxford, are released under the terms of the
+main FSL licence above, at the request of their owners. These atlases
+should therefore not be used for commercial purposes; for such
+purposes please contact the primary co-ordinator for the relevant
+atlas:
+
+Harvard-Oxford: steve@fmrib.ox.ac.uk
+JHU: susumu@mri.jhu.edu
+Juelich: S.Eickhoff@fz-juelich.de
+Thalamus: behrens@fmrib.ox.ac.uk
+Cerebellum: j.diedrichsen@bangor.ac.uk
+
+-------------------------------------------------------------------
+
+FSLView
+
+FSLView sources are released under the terms of the GPL
+(http://www.gnu.org/copyleft/gpl.html). FSLView binaries use Qt
+(http://www.trolltech.com) which is released under GPL for X11.  The
+FSLView binaries are released under the GPL, with the added exception
+that we also give permission to link this program with the Qt
+non-commercial edition, and distribute the resulting executable,
+without including the source code for the Qt non-commercial edition in
+the source distribution.
+
+FSLView is distributed "AS IS" under this Licence in the hope that it
+will be useful, but in order that the University as a charitable
+foundation protects its assets for the benefit of its educational and
+research purposes, the University makes clear that no condition is
+made or to be implied, nor is any warranty given or to be implied, as
+to the accuracy of the Software, or that it will be suitable for any
+particular purpose or for use under any specific conditions.
+Furthermore, the University disclaims all responsibility for the use
+which is made of the Software. It further disclaims any liability for
+the outcomes arising from using the Software.</license>
+                </module>
+                <variables>
+                        <variable name="Age">//idaxs/project/subject/study/subjectAge</variable>
+                        <variable name="Var 1">Value</variable>
+                        <variable name="CDRSCORE">//idaxs/project/subject/visit/assessment[@name='CDR']/component[@name='CDR Total Score']/assessmentScore[@attribute='CDGLOBAL']</variable>
+                        <variable name="Var sasasa2">Value</variable>
+                        <variable name="SUID">//idaxs/project/subject/subjectIdentifier</variable>
+                        <variable name="age">//idaxs/project/subject/study/subjectAge</variable>
+                        <variable name="TestCDR">//idaxs/project/subject/study/weightKg</variable>
+                        <variable name="MMSCORE">//idaxs/project/subject/visit/assessment[@name='MMSE']/component[@name='MMSE Total Score']/assessmentScore[@attribute='MMSCORE']</variable>
+                        <variable name="y">//idaxs/project/subject/study/subjectAge</variable>
+                </variables>
+                <annotations visible="true">
+                        <annotation width="935" height="908" posX="2" posY="685" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;(NOTE: FSL .fsf Design File #TR(s) field must be set manually for your experiment. The Design File can be found locally: /home/brainimaging/Master_Pipe/FMRI/FSF_Design_And_Experimental_Variable_Files/Design_File.fsf OR can be downloaded from LONI by first downloading the Basic fMRI PreProcessing Streamlined workflow from the Loni Pipeliine Workflow Library and connecting the FSL .fsf Design File data source to a data sink path on your local machine) &#xA;&#xA;1. Double click One Functional Run. Set subject functional run (task/rest, task or rest) accordingly for each subject in the study. (Note: minimum 2 subject analysis)&#xA;&#xA;2. Double click T1 Niftis. Set T1 anatomcal images in the same order as the One Functional Run data.&#xA;&#xA;3. Create an Experimental Variable File (task) using the text editor of your choice. A template can be found: /home/brainimaging/FMRI/Experimental Variable files/task.txt&#xA;&#xA;4. Set Experimental Variable 1 File input to the file location you just made&#xA;&#xA;5. Repeat steps 3, 4 for Experimental Variable 2 File (rest)&#xA;&#xA;6. Double click Number of TRs. Set the repition time for the data&#xA;&#xA;7. Double click Skull Stripped Output. Name the directory to output the skull stripped T1 anatomical img/hdr pair of each subject. (NOTE: The pipeline will create the directory for you if it does not exist)&#xA;&#xA;8. Double click FSF Check. Name the directory to output the .fsf design file for each subject. (NOTE: The pipeline will create the directory for you if it does not exist)&#xA;&#xA;9. Double click FEAT Output Directory. Name the output directory for the FEAT module. (NOTE: The pipeline will create the directory for you if it does not exist AND it is recommended that the skull stripped output and FSF check files are subdirectories of this directory) &#xA;&#xA;Press Play&#xA;&#xA;TIPS:&#xA;-Copy (Ctl+C)&#xA;-Paste(Ctl+V)&#xA;-Undo(Ctl+Z)&#xA;-Use home folder manager to drag and drop files&#xA;-Use search function of home folder manager to quickly find files&#xA;-FSL Merge will fail for too many input images. It is recommended to run pipeline in batches of 10 (subjects)&#xA;-IT IS A GOOD IDEA TO KEEP THE 'ONE FUNCTIONAL RUN' INPUT IN A TEXT FILE FOR LATER REFERENCE (DETERMINE SUBJECT ORDER)&#xA;&#xA;OUTPUT:&#xA;-skull stripped T1 anatomical img/hdr pairs for each subject&#xA;-FSF design files for each subject updated according to the current study protocol&#xA;-Webpage analysis report (to run level analysis)&#xA;-Time-course plots of data vs model">
+                                <styles>
+                                        <style name="Steps:$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;(NOTE: FSL .fsf Design File #TR(s) field must be set manually for your experiment. The Design File can be found locally: /home/brainimaging/Master_Pipe/FMRI/FSF_Design_And_Experimental_Variable_Files/Design_File.fsf OR can be downloaded from LONI by first downloading the Basic fMRI PreProcessing Streamlined workflow from the Loni Pipeliine Workflow Library and connecting the FSL .fsf Design File data source to a data sink path on your local machine) &#xA;&#xA;1. Double click One Functional Run. Set subject functional run (task/rest, task or rest) accordingly for each subject in the study. (Note: minimum 2 subject analysis)&#xA;&#xA;2. Double click T1 Niftis. Set T1 anatomcal images in the same order as the One Functional Run data.&#xA;&#xA;3. Create an Experimental Variable File (task) using the text editor of your choice. A template can be found: /home/brainimaging/FMRI/Experimental Variable files/task.txt&#xA;&#xA;4. Set Experimental Variable 1 File input to the file location you just made&#xA;&#xA;5. Repeat steps 3, 4 for Experimental Variable 2 File (rest)&#xA;&#xA;6. Double click Number of TRs. Set the repition time for the data&#xA;&#xA;7. Double click Skull Stripped Output. Name the directory to output the skull stripped T1 anatomical img/hdr pair of each subject. (NOTE: The pipeline will create the directory for you if it does not exist)&#xA;&#xA;8. Double click FSF Check. Name the directory to output the .fsf design file for each subject. (NOTE: The pipeline will create the directory for you if it does not exist)&#xA;&#xA;9. Double click FEAT Output Directory. Name the output directory for the FEAT module. (NOTE: The pipeline will create the directory for you if it does not exist AND it is recommended that the skull stripped output and FSF check files are subdirectories of this directory) &#xA;&#xA;$6" fontSize="15" />
+                                        <style name="Press Play$1767" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;$1777" fontSize="15" />
+                                        <style name="TIPS:$1779" fontSize="15" isBold="true" />
+                                        <style name="&#xA;-Copy (Ctl+C)&#xA;-Paste(Ctl+V)&#xA;-Undo(Ctl+Z)&#xA;-Use home folder manager to drag and drop files&#xA;-Use search function of home folder manager to quickly find files&#xA;-FSL Merge will fail for too many input images. It is recommended to run pipeline in batches of 10 (subjects)&#xA;-IT IS A GOOD IDEA TO KEEP THE 'ONE FUNCTIONAL RUN' INPUT IN A TEXT FILE FOR LATER REFERENCE (DETERMINE SUBJECT ORDER)&#xA;$1784" fontSize="15" />
+                                        <style name="&#xA;OUTPUT:&#xA;$2169" fontSize="15" isBold="true" />
+                                        <style name="-skull stripped T1 anatomical img/hdr pairs for each subject&#xA;-FSF design files for each subject updated according to the current study protocol&#xA;-Webpage analysis report (to run level analysis)&#xA;-Time-course plots of data vs model$2178" fontSize="15" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

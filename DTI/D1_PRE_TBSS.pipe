@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="DTI1Directorydti_FAimage_1.Output" sink="RenameTBSSdti1_FA.nii.gz_1.Input" />
+                <connection source="DTI2Directorydti_FAimage_1.Output" sink="RenameTBSSdti2_FA.nii.gz_1.Input" />
+        </connections>
+        <moduleGroup id="PRE_tbss_1" name="PRE_tbss" posX="0" posY="0" sourceCode="">
+                <dataModule id="DTI1Directorydti_FAimage_1" name="DTI1 Directory dti_FA image" posX="4" posY="90" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Mar 21 11:30:09 EDT 2013" />
+                        </metadata>
+                        <output id="DTI1Directorydti_FAimage_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI1/dti_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI1/dti_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI1/dti_FA.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="RenameTBSSdti1_FA.nii.gz_1" name="Rename: /TBSS/dti1_FA.nii.gz" posX="0" posY="231" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Mar 21 11:30:26 EDT 2013" />
+                        </metadata>
+                        <input id="RenameTBSSdti1_FA.nii.gz_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/TBSS/dti1_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/TBSS/dti1_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/TBSS/dti1_FA.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="DTI2Directorydti_FAimage_1" name="DTI2 Directory dti_FA image" posX="436" posY="95" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Mar 21 11:30:09 EDT 2013" />
+                        </metadata>
+                        <output id="DTI2Directorydti_FAimage_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI2/dti_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI2/dti_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI2/dti_FA.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="RenameTBSSdti2_FA.nii.gz_1" name="Rename: /TBSS/dti2_FA.nii.gz" posX="432" posY="236" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Mar 21 11:30:26 EDT 2013" />
+                        </metadata>
+                        <input id="RenameTBSSdti2_FA.nii.gz_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/TBSS/dti2_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/TBSS/dti2_FA.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/TBSS/dti2_FA.nii.gz</value>
+                        </values>
+                </dataModule>
+                <annotations visible="true">
+                        <annotation width="494" height="422" posX="849" posY="12" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;1. Double click DTI1 Directory FA_image input. Search: dti_FA in the experiment directory in the Home Folder. Drag and drop the left most coloumn of dti_FA images&#xA;&#xA;2. Copy DTI1 Directory FA_image input and paste into Rename: /TBSS/dti1_FA.nii.gz output. Find&amp;Replace. Find: DTI1. Replace All: TBSS. Find&amp;Replace. Find: dti_FA. Replace All: dti1_FA.&#xA;&#xA;3. Copy all DTI1 Directory FA_image input and paste it to DTI2 Directory dti_FA image input. Find&amp;Replace. Find: DTI1. Replace All: DTI2&#xA;&#xA;4. Copy all Rename: /TBSS/dti1_FA.nii.gz output and paste it to Rename: /TBSS/dti2_FA.nii.gz output. Find&amp;Replace. Find: dti1_FA. Replace All: dti2_FA&#xA;&#xA;Press Play&#xA;&#xA;TIP: &#xA;-Don't forget to remove 'file://' prefix from drag and drop steps using Find&amp;Replace. Find: 'file://'. Replace All&#xA;-Use Ctl+A to highlight all images to drag and drop">
+                                <styles>
+                                        <style name="Steps:$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;1. Double click DTI1 Directory FA_image input. $6" fontSize="15" />
+                                        <style name="Search$55" fontSize="15" isBold="true" />
+                                        <style name=": dti_FA in the experiment directory in the Home Folder. Drag and drop the left most coloumn of dti_FA images&#xA;&#xA;2. Copy DTI1 Directory FA_image input and paste into Rename: /TBSS/dti1_FA.nii.gz output. $61" fontSize="15" />
+                                        <style name="Find&amp;Replace$262" fontSize="15" isBold="true" />
+                                        <style name=". Find: DTI1. Replace All: TBSS. $274" fontSize="15" />
+                                        <style name="Find&amp;Replace$307" fontSize="15" isBold="true" />
+                                        <style name=". Find: dti_FA. Replace All: dti1_FA.&#xA;&#xA;3. Copy all DTI1 Directory FA_image input and paste it to DTI2 Directory dti_FA image input. $319" fontSize="15" />
+                                        <style name="Find&amp;Replace$451" fontSize="15" isBold="true" />
+                                        <style name=". Find: DTI1. Replace All: DTI2&#xA;&#xA;4. Copy all Rename: /TBSS/dti1_FA.nii.gz output and paste it to Rename: /TBSS/dti2_FA.nii.gz output. $463" fontSize="15" />
+                                        <style name="Find&amp;Replace$597" fontSize="15" isBold="true" />
+                                        <style name=". Find: dti1_FA. Replace All: dti2_FA&#xA;&#xA;$609" fontSize="15" />
+                                        <style name="Press Play$648" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;$658" fontSize="15" />
+                                        <style name="TIP:$660" fontSize="15" isBold="true" />
+                                        <style name=" &#xA;-Don't forget to remove 'file://' prefix from drag and drop steps using $664" fontSize="15" />
+                                        <style name="Find&amp;Replace. $738" fontSize="15" isBold="true" />
+                                        <style name="Find: 'file://'. Replace All$752" fontSize="15" />
+                                        <style name="&#xA;$780" fontSize="15" isBold="true" />
+                                        <style name="-Use Ctl+A to highlight all images to drag and drop$781" fontSize="15" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

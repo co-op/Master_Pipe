@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="FA_JHU_1.Output" sink="FSLStatsnii.gz_1.Input" />
+                <connection source="FSLMathsnii.gz_1.OutputFile" sink="FSLStatsnii.gz_1.Masking" />
+                <connection source="FSLStatsnii.gz_1.Output" sink="StatsOutput_1.Input" />
+                <connection source="JHU_Lables_1mm_1.Output" sink="FSLMathsnii.gz_1.InputFile" />
+                <connection source="FSLMathsnii.gz_1.OutputFile" sink="MathsOutput_1.Input" />
+        </connections>
+        <moduleGroup id="fsl_stats_1" name="fsl_stats" posX="0" posY="0" sourceCode="">
+                <module id="FSLStatsnii.gz_1" name="FSLStats (nii.gz)" package="FSL" version="4.1.4" description="Report certain summary statistics for an input 3D/4D image. Of particular value is the &quot;robust intensity range&quot; which calculates the 2% and 98% percentiles. " posX="27" posY="527" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-fslstats.sh" executableVersion="4.1.4">
+                        <authors>
+                                <author fullName="Quang Hoang" email="" website="" />
+                        </authors>
+                        <citations>
+                                <citation>S.M. Smith, M. Jenkinson, M.W. Woolrich, C.F. Beckmann, T.E.J. Behrens, H. Johansen-Berg, P.R. Bannister, M. De Luca, I. Drobnjak, D.E. Flitney, R. Niazy, J. Saunders, J. Vickers, Y. Zhang, N. De Stefano, J.M. Brady, and P.M. Matthews. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage, 23(S1):208-219, 2004
+
+PMID: 15501092</citation>
+                        </citations>
+                        <tag>report stats</tag>
+                        <tag>robust intensity range</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/avwutils/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Jul 11 12:24:19 PDT 2007" />
+                        </metadata>
+                        <input id="FSLStatsnii.gz_1.Input" name="Input" description="Specifies the input file path." required="true" enabled="true" order="2">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLStatsnii.gz_1.LowerThreshold" name="Lower Threshold" description="Set lower threshold.&#xA;(Note: not inclusive, i.e. does not include value specified)" required="false" enabled="false" order="4" prefix="-l" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>0.4</value>
+                                </values>
+                        </input>
+                        <input id="FSLStatsnii.gz_1.UpperThreshold" name="Upper Threshold" description="Set upper threshold.&#xA;(Note: not inclusive, i.e. does not include value specified)" required="false" enabled="false" order="5" prefix="-u" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>1</value>
+                                </values>
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputrobustintensities" name="Output (robust intensities)" description="Output &lt;robust min intensity&gt; and &lt;robust max intensity&gt;." required="false" enabled="false" order="6" prefix="-r" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputintensities" name="Output (intensities)" description="Output &lt;min intensity&gt; and &lt;max intensity&gt;." required="false" enabled="false" order="7" prefix="-R" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputmeanentropy" name="Output (mean entropy)" description="Output mean entropy; mean(-i*ln(i))." required="false" enabled="false" order="8" prefix="-e" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputvolumeforzerovoxels" name="Output (volume for zero voxels)" description="Output &lt;voxels&gt; &lt;volume&gt;." required="false" enabled="false" order="10" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputvolumefornonzerovoxels" name="Output (volume for nonzero voxels)" description="Output &lt;voxels&gt; &lt;volume&gt; for nonzero voxels.&#xA;" required="false" enabled="false" order="11" prefix="-V" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputmeanforzerovoxels" name="Output (mean for zero voxels)" description="Output mean (for zero voxels)." required="false" enabled="true" order="12" prefix="-m" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputmeanfornonzerovoxels" name="Output (mean for nonzero voxels)" description="Output mean (for nonzero voxels)." required="false" enabled="false" order="13" prefix="-M" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Ouptutstandarddeviationforzerovoxels" name="Ouptut (standard deviation for zero voxels)" description="Output standard deviation." required="false" enabled="true" order="14" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Ouptutstandarddeviationfornonzerovoxels" name="Ouptut (standard deviation for nonzero voxels)" description="Output standard deviation (for nonzero voxels)." required="false" enabled="true" order="15" prefix="-S" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.OutputsmallestROI" name="Output (smallest ROI)" description="Output smallest ROI &lt;xmin&gt; &lt;xsize&gt; &lt;ymin&gt; &lt;ysize&gt; &lt;zmin&gt; &lt;zsize&gt; &lt;tmin&gt; &lt;tsize&gt; containing nonzero voxels." required="false" enabled="false" order="16" prefix="-w" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputmaxvoxelcoordinates" name="Output (max voxel coordinates)" description="Output co-ordinates of maximum voxel." required="false" enabled="true" order="17" prefix="-x" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputmeanentropyofnonzerovoxels" name="Output (mean entropy of nonzero voxels)" description="Output mean entropy (of nonzero voxels)." required="false" enabled="false" order="9" prefix="-E" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputminvoxelcoordinates" name="Output (min voxel coordinates)" description="Output co-ordinates of minimum voxel." required="false" enabled="false" order="18" prefix="-X" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.OutputCOGinmm" name="Output (COG in mm)" description="Output centre-of-gravity (cog) in mm coordinates." required="false" enabled="false" order="19" prefix="-c" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.OutputCOGinvoxel" name="Output (COG in voxel)" description="Output centre-of-gravity (cog) in voxel coordinates." required="false" enabled="false" order="20" prefix="-C" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputnthpercentilebetween0and100" name="Output (nth percentile between 0 and 100)" description="Output nth percentile (n between 0 and 100)." required="false" enabled="false" order="21" prefix="-p" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputnthpercentilefornonzero" name="Output (nth percentile for nonzero)" description="Output nth percentile (for nonzero voxels)." required="false" enabled="false" order="22" prefix="-P" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.AbsValue" name="Abs Value" description="Use absolute values of all image intensities." required="false" enabled="false" order="23" prefix="-a" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.TreatasZero" name="Treat as Zero" description="Treat NaN or Inf as zero for subsequent stats." required="false" enabled="false" order="24" prefix="-n" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Masking" name="Masking" description="Use the specified image (filename) for masking - overrides lower and upper thresholds." required="false" enabled="true" order="3" prefix="-k" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image file">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputhistogram" name="Output (histogram)" description="Output a histogram (for the thresholded/masked voxels only) with nbins.&#xA;Usage: -h &lt;nbins&gt;." required="false" enabled="false" order="25" prefix="-h" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLStatsnii.gz_1.Outputhistogramwithlimits" name="Output (histogram with limits)" description="Output a histogram (for the thresholded/masked voxels only) with nbins and histogram limits of min and max.&#xA;Usage: -H &lt;nbins&gt; &lt;min&gt; &lt;max&gt;" required="false" enabled="false" order="26" prefix="-H" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="3" />
+                        </input>
+                        <output id="FSLStatsnii.gz_1.Output" name="Output" description="write statistics to output file" required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="FSLStatsnii.gz_1.linebyline" name="line by line" required="true" enabled="true" order="1" prefix="-t" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Steve Smith" email="steve@fmrib.ox.ac.uk " website="http://www.fmrib.ox.ac.uk/Members/steve " />
+                                <author fullName="Mark Jenkinson" email="mark@fmrib.ox.ac.uk " website="http://users.fmrib.ox.ac.uk/~mark/ " />
+                        </executableAuthors>
+                        <license>http://www.fmrib.ox.ac.uk/fsl/fsl/licence.html
+
+LICENCE
+
+FMRIB Software Library, Release 4.1 (c) 2008, The University of Oxford
+(the "Software")
+
+The Software remains the property of the University of Oxford ("the
+University").
+
+The Software is distributed "AS IS" under this Licence solely for
+non-commercial use in the hope that it will be useful, but in order
+that the University as a charitable foundation protects its assets for
+the benefit of its educational and research purposes, the University
+makes clear that no condition is made or to be implied, nor is any
+warranty given or to be implied, as to the accuracy of the Software,
+or that it will be suitable for any particular purpose or for use
+under any specific conditions. Furthermore, the University disclaims
+all responsibility for the use which is made of the Software. It
+further disclaims any liability for the outcomes arising from using
+the Software.
+
+The Licensee agrees to indemnify the University and hold the
+University harmless from and against any and all claims, damages and
+liabilities asserted by third parties (including claims for
+negligence) which arise directly or indirectly from the use of the
+Software or the sale of any products based on the Software.
+
+No part of the Software may be reproduced, modified, transmitted or
+transferred in any form or by any means, electronic or mechanical,
+without the express permission of the University. The permission of
+the University is not required if the said reproduction, modification,
+transmission or transference is done without financial return, the
+conditions of this Licence are imposed upon the receiver of the
+product, and all original and amended source code is included in any
+transmitted product. You may be held legally responsible for any
+copyright infringement that is caused or encouraged by your failure to
+abide by these terms and conditions.
+
+You are not permitted under this Licence to use this Software
+commercially. Use for which any financial return is received shall be
+defined as commercial use, and includes (1) integration of all or part
+of the source code or the Software into a product for sale or license
+by or on behalf of Licensee to third parties or (2) use of the
+Software or any derivative of it for research with the final aim of
+developing software products for sale or license to a third party or
+(3) use of the Software or any derivative of it for research with the
+final aim of developing non-software products for sale or license to a
+third party, or (4) use of the Software to provide any service to an
+external organisation for which payment is received. If you are
+interested in using the Software commercially, please contact Isis
+Innovation Limited ("Isis"), the technology transfer company of the
+University, to negotiate a licence. Contact details are:
+innovation@isis.ox.ac.uk quoting reference BS/3497.</license>
+                </module>
+                <dataModule id="FA_JHU_1" name="FA_JHU" description="Double click to set FA_atlas input" posX="37" posY="36" sourceCode="" type="File" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 12 10:27:45 EDT 2013" />
+                        </metadata>
+                        <output id="FA_JHU_1.Output" name="Output" description="Double click to set FA_atlas input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/GenovaDicom/dicomtar_FILES/Coregistration/FA_to_JHU.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="JHU_Lables_1mm_1" name="JHU_Lables_1mm" description="Double click to set atlas label input" posX="332" posY="41" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 12 10:28:29 EDT 2013" />
+                        </metadata>
+                        <output id="JHU_Lables_1mm_1.Output" name="Output" description="Double click to set atlas label input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//usr/share/fsl/data/atlases/JHU/JHU-ICBM-labels-1mm.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="StatsOutput_1" name="Stats Output" posX="74" posY="879" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Mar 14 10:11:14 EDT 2013" />
+                        </metadata>
+                        <input id="StatsOutput_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/STATS/stats_output_thr_30.tsv</value>
+                        </values>
+                </dataModule>
+                <module id="FSLMathsnii.gz_1" name="FSLMaths (nii.gz)" package="FSL" version="4.1.4" description="Simple but powerful program to allow mathematical manipulation of images." posX="340" posY="227" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-fslmaths" executableVersion="4.1.4">
+                        <authors>
+                                <author fullName="Stephen Tabaquin" email="tabaquin@ucla.edu " website="http://loni.ucla.edu " />
+                        </authors>
+                        <citations>
+                                <citation>S.M. Smith, M. Jenkinson, M.W. Woolrich, C.F. Beckmann, T.E.J. Behrens, H. Johansen-Berg, P.R. Bannister, M. De Luca, I. Drobnjak, D.E. Flitney, R. Niazy, J. Saunders, J. Vickers, Y. Zhang, N. De Stefano, J.M. Brady, and P.M. Matthews. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage, 23(S1):208-219, 2004
+
+PMID: 15501092</citation>
+                        </citations>
+                        <tag>manipulation</tag>
+                        <tag>mathematical</tag>
+                        <uri>http://www.fmrib.ox.ac.uk/fsl/avwutils/index.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Jun 27 18:19:26 PDT 2007" />
+                        </metadata>
+                        <input id="FSLMathsnii.gz_1.InputFile" name="Input File" description="Specifies the input file path." required="true" enabled="true" order="0">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                                <filetype name="Analyze Image" extension="img" description="Analyze Image">
+                                                        <need>hdr</need>
+                                                </filetype>
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Addimage" name="Add (image)" description="Add following input (image) to current image." required="false" enabled="false" order="2" prefix="-add" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Subtractinteger" name="Subtract (integer)" description="Subtract following input (integer) from current image." required="false" enabled="false" order="3" prefix="-sub" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Subtractimage" name="Subtract (image)" description="Subtract following input (image) from current image." required="false" enabled="false" order="4" prefix="-sub" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Multiplyinteger" name="Multiply (integer)" description="Multiply current image by following input (integer)." required="false" enabled="false" order="5" prefix="-mul" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Multiplyimage" name="Multiply (image)" description="Multiply current image by following input (image)." required="false" enabled="false" order="6" prefix="-mul" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Divideinteger" name="Divide (integer)" description="Divide current image by following input (integer)." required="false" enabled="false" order="7" prefix="-div" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Divideimage" name="Divide (image)" description="Divide current image by following input (image)." required="false" enabled="false" order="8" prefix="-div" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Mask" name="Mask" description="Use (following image&gt;0) to mask current image." required="false" enabled="false" order="11" prefix="-mas" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Threshold" name="Threshold" description="Use following number to threshold current image (zero anything below the number)." required="false" enabled="true" order="12" prefix="-thr" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>30</value>
+                                </values>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Upper-Threshold" name="Upper-Threshold" description="Use following number to upper-threshold current image (zero anything above the number)." required="false" enabled="true" order="15" prefix="-uthr" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                                <values>
+                                        <value>30</value>
+                                </values>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Maxinteger" name="Max (integer)" description="Take maximum of following input (integer) and current image." required="false" enabled="false" order="18" prefix="-max" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Maximage" name="Max (image)" description="Take maximum of following input (image) and current image." required="false" enabled="false" order="19" prefix="-max" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Mininteger" name="Min (integer)" description="Take minimum of following input (integer) and current image." required="false" enabled="false" order="20" prefix="-min" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Minimage" name="Min (image)" description="Take minimum of following input (image) and current image." required="false" enabled="false" order="21" prefix="-min" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Exponential" name="Exponential" description="Exponential unary operation." required="false" enabled="false" order="22" prefix="-exp" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Naturallogarithm" name="Natural logarithm" description="Natural logarithm unary operation." required="false" enabled="false" order="23" prefix="-log" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Square" name="Square" description="Square unary operation." required="false" enabled="false" order="24" prefix="-sqr" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Squareroot" name="Square root" description="Square root unary operation." required="false" enabled="false" order="25" prefix="-sqrt" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.AbsoluteValue" name="Absolute Value" description="Absolute value unary operation." required="false" enabled="false" order="26" prefix="-abs" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Binarise" name="Binarise" description="Use (current image&gt;0) to binarise." required="false" enabled="false" order="27" prefix="-bin" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Edge" name="Edge" description="Edge strength." required="false" enabled="false" order="30" prefix="-edge" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ReplaceNaN" name="Replace NaN" description="Replace NaNs (improper numbers) with 0." required="false" enabled="false" order="32" prefix="-nan" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.MakeNaN" name="Make NaN" description="Make NaN (improper number) mask with 1 for NaN voxels, 0 otherwise." required="false" enabled="false" order="33" prefix="-nanm" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.XMean" name="X Mean" description="Mean across x dimension." required="false" enabled="false" order="54" prefix="-Xmean" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YMean" name="Y Mean" description="Mean across y dimension." required="false" enabled="false" order="56" prefix="-Ymean" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZMean" name="Z Mean" description="Mean across z dimension." required="false" enabled="false" order="55" prefix="-Zmean" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TMean" name="T Mean" description="Mean across time." required="false" enabled="false" order="57" prefix="-Tmean" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.XStdDev" name="X Std Dev" description="Standard deviation across x dimension." required="false" enabled="false" order="58" prefix="-Xstd" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YStdDev" name="Y Std Dev" description="Standard deviation across y dimension." required="false" enabled="false" order="59" prefix="-Ystd" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZStdDev" name="Z Std Dev" description="Standard deviation across z dimension." required="false" enabled="false" order="60" prefix="-Zstd" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TStdDev" name="T Std Dev" description="Standard deviation across time." required="false" enabled="false" order="61" prefix="-Tstd" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.XMax" name="X Max" description="Maximum across x dimension." required="false" enabled="false" order="66" prefix="-Xmax" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YMax" name="Y Max" description="Maximum across y dimension." required="false" enabled="false" order="67" prefix="-Ymax" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZMax" name="Z Max" description="Maximum across z dimension." required="false" enabled="false" order="68" prefix="-Zmax" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TMax" name="T Max" description="Maximum across time." required="false" enabled="false" order="69" prefix="-Tmax" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.XMaxIndex" name="X Max Index" description="X index of max across x dimension." required="false" enabled="false" order="70" prefix="-Xmaxn" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YMaxIndex" name="Y Max Index" description="Y index of max across y dimension." required="false" enabled="false" order="71" prefix="-Ymaxn" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZMaxIndex" name="Z Max Index" description="Z index of max across z dimension." required="false" enabled="false" order="72" prefix="-Zmaxn" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TMaxIndex" name="T Max Index" description="Time index of max across time." required="false" enabled="false" order="73" prefix="-Tmaxn" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.XMin" name="X Min" description="Minimum across x dimension." required="false" enabled="false" order="74" prefix="-Xmin" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZMin" name="Z Min" description="Minimum across z dimension." required="false" enabled="false" order="75" prefix="-Zmin" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TMin" name="T Min" description="Minimum across time." required="false" enabled="false" order="77" prefix="-Tmin" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.XMedian" name="X Median" description="Median across x dimension." required="false" enabled="false" order="78" prefix="-Xmedian" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YMedian" name="Y Median" description="Median across y dimension." required="false" enabled="false" order="79" prefix="-Ymedian" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZMedian" name="Z Median" description="Median across z dimension." required="false" enabled="false" order="80" prefix="-Zmedian" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TMedian" name="T Median" description="Median across time." required="false" enabled="false" order="81" prefix="-Tmedian" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.XPercentage" name="X Percentage" description="&lt;n&gt;th percentile (0-100) across x dimension." required="false" enabled="false" order="82" prefix="-Xperc" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YPercentage" name="Y Percentage" description="&lt;n&gt;th percentile (0-100) across y dimension." required="false" enabled="false" order="83" prefix="-Yperc" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZPercentage" name="Z Percentage" description="&lt;n&gt;th percentile (0-100) across z dimension." required="false" enabled="false" order="84" prefix="-Zperc" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TPercentage" name="T Percentage" description="&lt;n&gt;th percentile (0-100) across time." required="false" enabled="false" order="85" prefix="-Tperc" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <output id="FSLMathsnii.gz_1.OutputFile" name="Output File" description="Specifies the output file path." required="true" enabled="true" order="93">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="FSLMathsnii.gz_1.XARCoefficient" name="X AR Coefficient" description="AR Coefficient across x dimension." required="false" enabled="false" order="62" prefix="-Xarl" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YARCoefficient" name="Y AR Coefficient" description="AR Coefficient across y dimension." required="false" enabled="false" order="63" prefix="-Yarl" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ZARCoefficient" name="Z AR Coefficient" description="AR Coefficient across z dimension." required="false" enabled="false" order="64" prefix="-Zarl" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TARCoefficient" name="T AR Coefficient" description="Temporal AR(1) coefficient (use _32R and probably demean first)." required="false" enabled="false" order="65" prefix="-Tarl" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Remainderinteger" name="Remainder (integer)" description="Modulus remainder - divide current integer by following input and take remainder." required="false" enabled="false" order="9" prefix="-rem" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Remainderimage" name="Remainder (image)" description="Modulus remainder - divide current image by following input and take remainder." required="false" enabled="false" order="10" prefix="-rem" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ThresholdPercentage" name="Threshold Percentage" description="Use following percentage (0-100) of ROBUST RANGE to threshold current image (zero anything below the number)." required="false" enabled="false" order="13" prefix="-thrp" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ThresholdPercentagenon-zerovoxels" name="Threshold Percentage (non-zero voxels)" description="Use following percentage (0-100) of ROBUST RANGE of non-zero voxels and threshold below." required="false" enabled="false" order="14" prefix="-thrP" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Upper-ThresholdPercentage" name="Upper-Threshold Percentage" description="Use following percentage (0-100) of ROBUST RANGE to upper-threshold current image (zero anything above the number)." required="false" enabled="false" order="16" prefix="-uthrp" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Upper-ThresholdPercentagenon-zerovoxels" name="Upper-Threshold Percentage (non-zero voxels)" description="Use following percentage (0-100) of ROBUST RANGE of non-zero voxels and threshold above." required="false" enabled="false" order="17" prefix="-uthrP" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Index" name="Index" description="Replace each nonzero voxel with a unique (subject to wrapping) index number." required="false" enabled="false" order="28" prefix="-index" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Grid" name="Grid" description="Add a 3D grid of intensity &lt;value&gt; with grid spacing &lt;spacing&gt;.&#xA;Usage: -grid &lt;value&gt; &lt;spacing&gt;" required="false" enabled="false" order="29" prefix="-grid" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="2" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.TFCE" name="TFCE" description="Enhance with TFCE, e.g. -tfce 2 0.5 6 (maybe change 6 to 26 for skeletons).&#xA;Usage: -tfce &lt;H&gt; &lt;E&gt; &lt;connectivity&gt;" required="false" enabled="false" order="31" prefix="-tfce" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="3" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.IntensityNormalisationper3Dvolumemean" name="Intensity Normalisation (per 3D volume mean)" description="(-i i ip.c) intensity normalisation (per 3D volume mean).&#xA;Usage: -inm &lt;mean&gt;" required="false" enabled="false" order="34" prefix="-inm" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.IntensityNormalisationglobal4Dmean" name="Intensity Normalisation (global 4D mean)" description="(-I i ip.c) intensity normalisation, global 4D mean).&#xA;Usage: -ing &lt;mean&gt;" required="false" enabled="false" order="35" prefix="-ing" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Kernel3D" name="Kernel 3D" description="3x3x3 box centered on target voxel (set as default kernel)." required="false" enabled="false" order="36" prefix="-kernel 3D" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Kernel2D" name="Kernel 2D" description="3x3x1 box centered on target voxel." required="false" enabled="false" order="37" prefix="-kernel 2D" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.KernelBox" name="Kernel Box" description="All voxels in a box of width &lt;size&gt; centered on target voxel.&#xA;Usage: -kernel box &lt;size&gt;" required="false" enabled="false" order="38" prefix="-kernel box" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.KernelBoxV" name="Kernel BoxV" description="&lt;size&gt;x&lt;size&gt;x&lt;size&gt; box centered on target voxel. &#xA;CAUTION: size should be an odd number.&#xA;Usage: -kernel boxv &lt;size&gt;" required="false" enabled="false" order="39" prefix="-kernel boxv" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.KernelGauss" name="Kernel Gauss" description="Gaussian kernel (sigma in mm, not voxels).&#xA;Usage: -kernel gauss &lt;sigma&gt;" required="false" enabled="false" order="40" prefix="-kernel gauss" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.KernelSphere" name="Kernel Sphere" description="All voxels in a sphere of radius &lt;size&gt; mm centered on target voxel.&#xA;Usage: -kernel sphere &lt;size&gt;" required="false" enabled="false" order="41" prefix="-kernel sphere" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.KernelFile" name="Kernel File" description="Use external file as kernel.&#xA;Usage: -kernel file &lt;filename&gt;" required="false" enabled="false" order="42" prefix="-kernel file" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.MeanDilation" name="Mean Dilation" description="Mean Dilation of zero voxels  (using non-zero voxels in kernel)." required="false" enabled="false" order="43" prefix="-dilM" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ModalDilation" name="Modal Dilation" description="Modal Dilation of zero voxels (using non-zero voxels in kernel)." required="false" enabled="false" order="44" prefix="-dilD" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.MaximumFiltering" name="Maximum Filtering" description="Maximum filtering of all voxels." required="false" enabled="false" order="45" prefix="-dilF" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Erode" name="Erode" description="Erode by zeroing non-zero voxels when zero voxels found in kernel." required="false" enabled="false" order="46" prefix="-ero" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.MinimumFiltering" name="Minimum Filtering" description="Minimum filtering of all voxels." required="false" enabled="false" order="47" prefix="-eroF" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.MedianFiltering" name="Median Filtering" description="Median filtering." required="false" enabled="false" order="48" prefix="-fmedian" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.MeanFiltering" name="Mean Filtering" description="Mean filtering, kernel weighted (conventionally used with gauss kernel)." required="false" enabled="false" order="49" prefix="-fmean" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.MeanFilteringun-normalised" name="Mean Filtering (un-normalised)" description="Mean filtering, kernel weighted, un-normalised (gives edge effects)." required="false" enabled="false" order="50" prefix="-fmeanu" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Sigma" name="Sigma" description="Create a gauss kernel of sigma mm and perform mean filtering.&#xA;Usage: -s &lt;sigma&gt;" required="false" enabled="false" order="51" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.DownsampleImagecentered" name="Downsample Image (centered)" description="Downsamples image by a factor of 2 (keeping new voxels centred on old)." required="false" enabled="false" order="52" prefix="-subsamp2" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.DownsampleImagenon-centered" name="Downsample Image (non-centered)" description="Downsamples image by a factor of 2 (non-centred)." required="false" enabled="false" order="53" prefix="-subsamp2offc" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.RegionofInterest" name="Region of Interest" description="Zero outside ROI.&#xA;Usage: -roi &lt;xmin&gt; &lt;xsize&gt; &lt;ymin&gt; &lt;ysize&gt; &lt;zmin&gt; &lt;zsize&gt; &lt;tmin&gt; &lt;tsize&gt;" required="false" enabled="false" order="86" prefix="-roi" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="8" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.BPTF" name="BPTF" description="(-t in ip.c)  Bandpass temporal filtering; nonlinear highpass and Gaussian linear lowpass (with sigmas in volumes, not seconds); set either sigma&lt;0 to skip that filter.&#xA;Usage: -bptf &lt;hp_sigma&gt; &lt;lp_sigma&gt;" required="false" enabled="false" order="87" prefix="-bptf" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="2" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.ROC" name="ROC" description="Take (normally binary) truth and test current image in ROC analysis against truth. &lt;AROC-thresh&gt; is usually 0.05 and is limit of Area-under-ROC measure FP axis. &lt;outfile&gt; is a text file of the ROC curve (triplets of values: FP TP threshold).  If the truth image contains negative voxels these get excluded from all calculations. If &lt;AROC-thresh&gt; is positive then the [4Dnoiseonly] option needs to be set, and the FP rate is determined from this noise-only data, and is set to be the fraction of timepoints where any FP (anywhere) is seen, as found in the noise-only 4d-dataset.  This is then controlling the FWE rate.  If &lt;AROC-thresh&gt; is negative the FP rate is calculated from the zero-value parts of the &lt;truth&gt; image, this time averaging voxelwise FP rate over all timepoints. In both cases the TP rate is the average fraction of truth=positive voxels correctly found.&#xA;Usage: -roc &lt;AROC-thresh&gt; &lt;outfile&gt; [4dnoiseonly] &lt;truth&gt;" required="false" enabled="false" order="88" prefix="-roc" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                                <dependencies>
+                                        <dependent>4D Noise Only</dependent>
+                                        <dependent>AROC-thresh</dependent>
+                                </dependencies>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.4DNoiseOnly" name="4D Noise Only" description="Option for ROC.  If &lt;AROC-thresh&gt; is positive then the [4Dnoiseonly] option needs to be set." required="false" enabled="false" order="91" prefix="4Dnoiseonly" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                                <dependencies>
+                                        <dependsOn>ROC</dependsOn>
+                                </dependencies>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.AROC-thresh" name="AROC-thresh" description="Option for ROC.  &lt;AROC-thresh&gt; is usually 0.05 and is limit of Area-under-ROC measure FP axis." required="false" enabled="false" order="89">
+                                <format type="Number" cardinality="1" />
+                                <dependencies>
+                                        <dependsOn>ROC</dependsOn>
+                                </dependencies>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Truth" name="Truth" description="Option for ROC.  If &lt;AROC-thresh&gt; is negative the FP rate is calculated from the zero-value parts of the &lt;truth&gt; image, this time averaging voxelwise FP rate over all timepoints." required="false" enabled="false" order="92">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Outfile" name="Outfile" description="Option for ROC. &lt;outfile&gt; is a text file of the ROC curve (triplets of values: FP TP threshold)." required="false" enabled="false" order="90">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Text file" extension="txt" description="Text file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="FSLMathsnii.gz_1.YMin" name="Y Min" description="Minimum across y dimension." required="false" enabled="false" order="76" prefix="-Ymin" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="0" />
+                        </input>
+                        <input id="FSLMathsnii.gz_1.Addinteger" name="Add (integer)" description="Add following input (integer) to current image." required="false" enabled="false" order="1" prefix="-add" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Mark Jenkinson" email="mark@fmrib.ox.ac.uk" website="http://users.fmrib.ox.ac.uk/~mark/ " />
+                                <author fullName="Steve Smith" email="steve@fmrib.ox.ac.uk" website="http://www.fmrib.ox.ac.uk/Members/steve " />
+                        </executableAuthors>
+                        <license>http://www.fmrib.ox.ac.uk/fsl/fsl/licence.html
+
+LICENCE
+
+FMRIB Software Library, Release 4.1 (c) 2008, The University of Oxford
+(the "Software")
+
+The Software remains the property of the University of Oxford ("the
+University").
+
+The Software is distributed "AS IS" under this Licence solely for
+non-commercial use in the hope that it will be useful, but in order
+that the University as a charitable foundation protects its assets for
+the benefit of its educational and research purposes, the University
+makes clear that no condition is made or to be implied, nor is any
+warranty given or to be implied, as to the accuracy of the Software,
+or that it will be suitable for any particular purpose or for use
+under any specific conditions. Furthermore, the University disclaims
+all responsibility for the use which is made of the Software. It
+further disclaims any liability for the outcomes arising from using
+the Software.
+
+The Licensee agrees to indemnify the University and hold the
+University harmless from and against any and all claims, damages and
+liabilities asserted by third parties (including claims for
+negligence) which arise directly or indirectly from the use of the
+Software or the sale of any products based on the Software.
+
+No part of the Software may be reproduced, modified, transmitted or
+transferred in any form or by any means, electronic or mechanical,
+without the express permission of the University. The permission of
+the University is not required if the said reproduction, modification,
+transmission or transference is done without financial return, the
+conditions of this Licence are imposed upon the receiver of the
+product, and all original and amended source code is included in any
+transmitted product. You may be held legally responsible for any
+copyright infringement that is caused or encouraged by your failure to
+abide by these terms and conditions.
+
+You are not permitted under this Licence to use this Software
+commercially. Use for which any financial return is received shall be
+defined as commercial use, and includes (1) integration of all or part
+of the source code or the Software into a product for sale or license
+by or on behalf of Licensee to third parties or (2) use of the
+Software or any derivative of it for research with the final aim of
+developing software products for sale or license to a third party or
+(3) use of the Software or any derivative of it for research with the
+final aim of developing non-software products for sale or license to a
+third party, or (4) use of the Software to provide any service to an
+external organisation for which payment is received. If you are
+interested in using the Software commercially, please contact Isis
+Innovation Limited ("Isis"), the technology transfer company of the
+University, to negotiate a licence. Contact details are:
+innovation@isis.ox.ac.uk quoting reference BS/3497.</license>
+                </module>
+                <dataModule id="MathsOutput_1" name="Maths Output" posX="512" posY="393" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Mar 14 10:40:23 EDT 2013" />
+                        </metadata>
+                        <input id="MathsOutput_1.Input" name="Input" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/STATS/maths_output_thr_30.nii.gz</value>
+                        </values>
+                </dataModule>
+                <annotations visible="true">
+                        <annotation width="757" height="908" posX="726" posY="11" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Threshold Values:&#xA;&#xA;0-Unclassified&#xA;1-Middle cerebellar peduncle&#xA;2-Pontine crossing tract (a part of MCP)&#xA;3-Genu of corpus callosum&#xA;4-Body of corpus callosum&#xA;5-Splenium of corpus callosum&#xA;6-Fornix (column and body of fornix)&#xA;7-Corticospinal tract R&#xA;8-Corticospinal tract L&#xA;9-Medial lemniscus R&#xA;10-Medial lemniscus L&#xA;11-Inferior cerebellar peduncle R &#xA;12-Inferior cerebellar peduncle L&#xA;13-Superior cerebellar peduncle R&#xA;14-Superior cerebellar peduncle L&#xA;15-Cerebral peduncle R&#xA;16-Cerebral peduncle L&#xA;17-Anterior limb of internal capsule&#xA;18-Anterior limb of internal capsule L&#xA;19-Posterior limb of internal capsule R&#xA;20-Posterior limb of internal capsule L&#xA;21-Retrolenticular part of internal capsule R&#xA;22-Retrolenticular part of internal capsule L&#xA;23-Anterior corona radiata R&#xA;24-Anterior corona radiata L&#xA;25-Superior corona radiata R&#xA;26-Superior corona radiata L&#xA;27-Posterior corona radiata R&#xA;28-Posterior corona radiata L&#xA;29-Posterior thalamic radiation (include optic radiation) R&#xA;30-Posterior thalamic radiation (include optic radiation) L&#xA;31-Sagittal stratum (include inferior longitidinal fasciculus and inferior fronto-occipital fasciculus) R&#xA;32-Sagittal stratum (include inferior longitidinal fasciculus and inferior fronto-occipital fasciculus) L&#xA;33-External capsule R&#xA;34-External capsule L&#xA;35-Cingulum (cingulate gyrus) R&#xA;36-Cingulum (cingulate gyrus) L&#xA;37-Cingulum (hippocampus) R&#xA;38-Cingulum (hippocampus) L&#xA;39-Fornix (cres) / Stria terminalis (can not be resolved with current resolution) R&#xA;40-Fornix (cres) / Stria terminalis (can not be resolved with current resolution) L&#xA;41-Superior longitudinal fasciculus R&#xA;42-Superior longitudinal fasciculus L&#xA;43-Superior fronto-occipital fasciculus (could be a part of anterior internal capsule) R&#xA;44-Superior fronto-occipital fasciculus (could be a part of anterior internal capsule) L&#xA;45-Uncinate fasciculus R&#xA;46-Uncinate fasciculus L&#xA;47-Tapetum R&#xA;48-Tapetum L&#xA;&#xA;Further documentation at /usr/share/fsl/data/atlases/JHU-labels.xml">
+                                <styles>
+                                        <style name="Threshold Values:$0" fontSize="14" isBold="true" />
+                                        <style name="&#xA;&#xA;0-Unclassified&#xA;1-Middle cerebellar peduncle&#xA;2-Pontine crossing tract (a part of MCP)&#xA;3-Genu of corpus callosum&#xA;4-Body of corpus callosum&#xA;5-Splenium of corpus callosum&#xA;6-Fornix (column and body of fornix)&#xA;7-Corticospinal tract R&#xA;8-Corticospinal tract L&#xA;9-Medial lemniscus R&#xA;10-Medial lemniscus L&#xA;11-Inferior cerebellar peduncle R &#xA;12-Inferior cerebellar peduncle L&#xA;13-Superior cerebellar peduncle R&#xA;14-Superior cerebellar peduncle L&#xA;15-Cerebral peduncle R&#xA;16-Cerebral peduncle L&#xA;17-Anterior limb of internal capsule&#xA;18-Anterior limb of internal capsule L&#xA;19-Posterior limb of internal capsule R&#xA;20-Posterior limb of internal capsule L&#xA;21-Retrolenticular part of internal capsule R&#xA;22-Retrolenticular part of internal capsule L&#xA;23-Anterior corona radiata R&#xA;24-Anterior corona radiata L&#xA;25-Superior corona radiata R&#xA;26-Superior corona radiata L&#xA;27-Posterior corona radiata R&#xA;28-Posterior corona radiata L&#xA;29-Posterior thalamic radiation (include optic radiation) R&#xA;30-Posterior thalamic radiation (include optic radiation) L&#xA;31-Sagittal stratum (include inferior longitidinal fasciculus and inferior fronto-occipital fasciculus) R&#xA;32-Sagittal stratum (include inferior longitidinal fasciculus and inferior fronto-occipital fasciculus) L&#xA;33-External capsule R&#xA;34-External capsule L&#xA;35-Cingulum (cingulate gyrus) R&#xA;36-Cingulum (cingulate gyrus) L&#xA;37-Cingulum (hippocampus) R&#xA;38-Cingulum (hippocampus) L&#xA;39-Fornix (cres) / Stria terminalis (can not be resolved with current resolution) R&#xA;40-Fornix (cres) / Stria terminalis (can not be resolved with current resolution) L&#xA;41-Superior longitudinal fasciculus R&#xA;42-Superior longitudinal fasciculus L&#xA;43-Superior fronto-occipital fasciculus (could be a part of anterior internal capsule) R&#xA;44-Superior fronto-occipital fasciculus (could be a part of anterior internal capsule) L&#xA;45-Uncinate fasciculus R&#xA;46-Uncinate fasciculus L&#xA;47-Tapetum R&#xA;48-Tapetum L&#xA;&#xA;Further documentation at /usr/share/fsl/data/atlases/JHU-labels.xml$17" fontSize="12" />
+                                </styles>
+                        </annotation>
+                        <annotation width="200" height="100" posX="378" posY="100" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Double click to set atlas label input">
+                                <styles>
+                                        <style name="Double click to set atlas label input$0" fontSize="11" />
+                                </styles>
+                        </annotation>
+                        <annotation width="200" height="100" posX="76" posY="99" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Double click to set FA_atlas input">
+                                <styles>
+                                        <style name="Double click to set FA_atlas input$0" fontSize="11" />
+                                </styles>
+                        </annotation>
+                        <annotation width="200" height="100" posX="125" posY="241" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Set threshold value to target region of interest. Produces a nii.gz file to be used as mask for next step">
+                                <styles>
+                                        <style name="Set threshold value to target region of interest. Produces a nii.gz file to be used as mask for next step$0" fontSize="11" />
+                                </styles>
+                        </annotation>
+                        <annotation width="200" height="100" posX="36" posY="957" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Double click to set output path">
+                                <styles>
+                                        <style name="Double click to set output path$0" fontSize="11" />
+                                </styles>
+                        </annotation>
+                        <annotation width="200" height="100" posX="139" posY="613" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Output stats to .tsv file for further analysis">
+                                <styles>
+                                        <style name="Output stats to .tsv file for further analysis$0" fontSize="11" />
+                                </styles>
+                        </annotation>
+                        <annotation width="459" height="440" posX="1022" posY="12" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;1. Set input FA_JHU image as the all_FA image coregistered to the JHU-ICBM-FA-1mm atlas&#xA;&#xA;2. Set desired atlas label input image from /usr/share/fsl/data/atlases (default: JHU_Lables_1mm)&#xA;&#xA;3. Set 'Threshold' and 'Upper Threshold' options in FSLMaths to desired Region of Interest (ROI) based on the table of threshold values&#xA;&#xA;4. Set Maths Output image file destination &#xA;&#xA;5. Set desired FSLStats options to be written to a tab delimited file&#xA;&#xA;6. Set tab delimited file destination &#xA;&#xA;Press Play&#xA;&#xA;OUTPUT:&#xA;-3D '.nii.gz' image file of ROI based on threshold value&#xA;-User defined stats based on ROI">
+                                <styles>
+                                        <style name="Steps:$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;1. Set input FA_JHU image as the all_FA image coregistered to the JHU-ICBM-FA-1mm atlas&#xA;&#xA;2. Set desired atlas label input image from /usr/share/fsl/data/atlases (default: JHU_Lables_1mm)&#xA;&#xA;3. Set 'Threshold' and 'Upper Threshold' options in FSLMaths to desired Region of Interest (ROI) based on the table of threshold values&#xA;&#xA;4. Set Maths Output image file destination &#xA;&#xA;5. Set desired FSLStats options to be written to a tab delimited file&#xA;&#xA;6. Set tab delimited file destination &#xA;&#xA;$6" fontSize="15" />
+                                        <style name="Press Play&#xA;&#xA;OUTPUT:&#xA;$489" fontSize="15" isBold="true" />
+                                        <style name="-3D '.nii.gz' image file of ROI based on threshold value&#xA;-User defined stats based on ROI$509" fontSize="15" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

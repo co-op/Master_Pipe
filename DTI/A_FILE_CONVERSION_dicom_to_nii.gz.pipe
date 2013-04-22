@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="InputDICOMDirectory_1.Output" sink="DICOMTONIFTI_1.InputDirectoryofDICOMs" />
+        </connections>
+        <moduleGroup id="A_dicom_dir_to_nii.gz_1" name="A_dicom_dir_to_nii.gz" posX="0" posY="0" sourceCode="">
+                <module id="DICOMTONIFTI_1" name="DICOM TO NIFTI" package="Utilities" version="12.2009" description="MRIcron&#xA;&#xA;dcm2nii &lt;options&gt; &lt;sourcenames&gt;&#xA;OPTIONS:&#xA;-a Anonymize [remove identifying information]: Y,N = Y&#xA;-d Date in filename [filename.dcm -&gt; 20061230122032.nii]: Y,N = Y&#xA;-e events (series/acq) in filename [filename.dcm -&gt; s002a003.nii]: Y,N = Y&#xA;-f Source filename [e.g. filename.par -&gt; filename.nii]: Y,N = Y&#xA;-g gzip output, filename.nii.gz [ignored if '-n n']: Y,N = Y&#xA;-i ID  in filename [filename.dcm -&gt; johndoe.nii]: Y,N = Y&#xA;-n output .nii file [if no, create .hdr/.img pair]: Y,N = Y&#xA;-o Output Directory, e.g. 'C:\TEMP' (if unspecified, source directory is used)&#xA;-p Protocol in filename [filename.dcm -&gt; TFE_T1.nii]: Y,N = Y&#xA;-s SPM2/Analyze not SPM5/NIfTI [ignored if '-n y']: Y,N = N&#xA;-v Convert every PAR file in the directory: Y,N = Y&#xA;&#xA;EXAMPLE: dcm2nii -a y /Users/Joe/Documents/dcm/IM_0116&#xA;&#xA;" posX="106" posY="223" sourceCode="" location="pipeline://localhost//usr/bin/dcm2nii" executableVersion="12.2009">
+                        <authors>
+                                <author fullName="Alen Zamanyan" email="" website="" />
+                        </authors>
+                        <tag>convert</tag>
+                        <tag>dicom</tag>
+                        <tag>nifti</tag>
+                        <uri>http://www.cabiatl.com/mricro/mricron/dcm2nii.html</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Apr 22 11:37:08 PDT 2011" />
+                        </metadata>
+                        <input id="DICOMTONIFTI_1.Anonymize" name="Anonymize" description="-a Anonymize [remove identifying information]: Y,N = Y&#xA;" required="false" enabled="true" order="0" prefix="-a" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                                <values>
+                                        <value>Y</value>
+                                </values>
+                        </input>
+                        <input id="DICOMTONIFTI_1.DateinFilename" name="Date in Filename" description="-d Date in filename [filename.dcm -&gt; 20061230122032.nii]: Y,N = Y" required="false" enabled="false" order="1" prefix="-d" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                        </input>
+                        <input id="DICOMTONIFTI_1.Events" name="Events" description="-e events (series/acq) in filename [filename.dcm -&gt; s002a003.nii]: Y,N = Y" required="false" enabled="false" order="2" prefix="-e" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                        </input>
+                        <input id="DICOMTONIFTI_1.SourceFilename" name="Source Filename" description="-f Source filename [e.g. filename.par -&gt; filename.nii]: Y,N = Y" required="false" enabled="false" order="3" prefix="-f" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                        </input>
+                        <input id="DICOMTONIFTI_1.GzipOutput" name="Gzip Output" description="-g gzip output, filename.nii.gz [ignored if '-n n']: Y,N = Y" required="false" enabled="true" order="4" prefix="-g" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                                <values>
+                                        <value>Y</value>
+                                </values>
+                        </input>
+                        <input id="DICOMTONIFTI_1.IDinFilename" name="ID in Filename" description="-i ID  in filename [filename.dcm -&gt; johndoe.nii]: Y,N = Y" required="false" enabled="false" order="5" prefix="-i" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                        </input>
+                        <input id="DICOMTONIFTI_1.Output.niiFile" name="Output .nii File" description="-n output .nii file [if no, create .hdr/.img pair]: Y,N = Y" required="false" enabled="true" order="6" prefix="-n" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                                <values>
+                                        <value>Y</value>
+                                </values>
+                        </input>
+                        <input id="DICOMTONIFTI_1.OutputDirectory" name="Output Directory" description="-o Output Directory, e.g. 'C:\TEMP' (if unspecified, source directory is used)" required="false" enabled="false" order="7" prefix="-o" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Directory" cardinality="1" />
+                        </input>
+                        <input id="DICOMTONIFTI_1.ProtocolinFilename" name="Protocol in Filename" description="-p Protocol in filename [filename.dcm -&gt; TFE_T1.nii]: Y,N = Y&#xA;" required="false" enabled="false" order="8" prefix="-p" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                        </input>
+                        <input id="DICOMTONIFTI_1.SPM2AnalyzenotSPM5NIfTI" name="SPM2/Analyze not SPM5/NIfTI" description="-s SPM2/Analyze not SPM5/NIfTI [ignored if '-n y']: Y,N = N" required="false" enabled="false" order="9" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                        </input>
+                        <input id="DICOMTONIFTI_1.ConvertEveryPARFile" name="Convert Every PAR File" description="-v Convert every PAR file in the directory: Y,N = Y" required="false" enabled="false" order="10" prefix="-v" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>Y</enumeration>
+                                        <enumeration>N</enumeration>
+                                </format>
+                        </input>
+                        <input id="DICOMTONIFTI_1.InputDirectoryofDICOMs" name="Input Directory of DICOMs" required="true" enabled="true" order="11">
+                                <format type="Directory" cardinality="1" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Chris Rorden" email="" website="" />
+                        </executableAuthors>
+                        <license>http://www.mccauslandcenter.sc.edu/mricro/mricron/install.html
+License
+
+Chris Rorden's MRIcron, copyright 2007, all rights 
+reserved. Redistribution and use in binary forms
+, with or without modification, are permitted 
+provided inclusion of the copyright notice, 
+this list of conditions and the following disclaimer 
+is provided with the distribution: 
+Neither the name of the copyright owner nor 
+the name of this project (MRIcron) may be used
+ to endorse or promote products derived from 
+this software without specific prior written 
+permission.This software is provided by the 
+copyright holder "as is" and any express or 
+implied warranties, including, but not limited
+ to, the implied warranties of merchantability
+ and fitness for a particular purpose are 
+disclaimed. In no event shall the copyright 
+owner be liable for any direct, indirect, 
+incidental, special, exemplary, or consequential 
+damages (including, but not limited to, 
+procurement of substitute goods or services; 
+loss of use, data, or profits; or business 
+interruption) however caused and on any theory 
+of liability, whether in contract, strict 
+liability, or tort (including negligence or 
+otherwise) arising in any way out of the use 
+of this software, even if advised of the possibility 
+of such damage.</license>
+                </module>
+                <dataModule id="InputDICOMDirectory_1" name="Input DICOM Directory" description="Input DICOM directory to be converted to nii.gz format (i.e., LIFESPANS10)&#xA;" posX="152" posY="58" sourceCode="" type="Directory" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 19 15:11:07 EDT 2013" />
+                        </metadata>
+                        <output id="InputDICOMDirectory_1.Output" name="Output" description="Input DICOM directory to be converted to nii.gz format (i.e., LIFESPANS10)&#xA;" required="true" enabled="true" order="-1">
+                                <format type="Directory" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23</value>
+                        </values>
+                </dataModule>
+                <annotations visible="true">
+                        <annotation width="219" height="206" posX="493" posY="26" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;1. Double click 'Input DICOM directory'&#xA;&#xA;2. Drag and drop single or multiple DICOM subject directories to be converted to nifti format using Home Folder&#xA;&#xA;3. Find&amp;Replace. Find: file://. Replace All. &#xA;&#xA;TIPS:&#xA;-Hover over modules for a description of what they do&#xA;&#xA;OUTPUT:&#xA;-converts all DICOM images into compressed nifti format (T1, DTI1, DTI2, etc.)&#xA;&#xA;Press Play">
+                                <styles>
+                                        <style name="Steps:$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;1. Double click 'Input DICOM directory'&#xA;&#xA;2. Drag and drop single or multiple DICOM subject directories to be converted to nifti format using Home Folder&#xA;&#xA;3. $6" fontSize="15" />
+                                        <style name="Find&amp;Replace$165" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All. &#xA;&#xA;$177" fontSize="15" />
+                                        <style name="TIPS:&#xA;$209" fontSize="15" isBold="true" />
+                                        <style name="-Hover over modules for a description of what they do&#xA;&#xA;$215" fontSize="15" />
+                                        <style name="OUTPUT:$270" fontSize="15" isBold="true" />
+                                        <style name="&#xA;-converts all DICOM images into compressed nifti format (T1, DTI1, DTI2, etc.)&#xA;&#xA;$277" fontSize="15" />
+                                        <style name="Press Play$358" fontSize="15" isBold="true" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

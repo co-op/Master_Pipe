@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="bvec_1.Output" sink="dti1_fit_1.bvecs" />
+                <connection source="bval_1.Output" sink="dti1_fit_1.bvals" />
+                <connection source="eddy_corrected_1.Output" sink="dti1_fit_1.Inputdata" />
+                <connection source="DTI1Directory_1.Output" sink="dti1_fit_1.Outputbasename" />
+                <connection source="brain_mask_1.Output" sink="dti1_fit_1.Nodifbrainmask" />
+                <connection source="bvec_2.Output" sink="dti2_fit_1.bvecs" />
+                <connection source="bval_2.Output" sink="dti2_fit_1.bvals" />
+                <connection source="eddy_corrected_2.Output" sink="dti2_fit_1.Inputdata" />
+                <connection source="DTI2Directory_1.Output" sink="dti2_fit_1.Outputbasename" />
+                <connection source="brain_mask_2.Output" sink="dti2_fit_1.Nodifbrainmask" />
+        </connections>
+        <moduleGroup id="dtifit_1" name="dtifit" posX="0" posY="0" sourceCode="">
+                <module id="dti1_fit_1" name="dti1_fit" package="FSL" description="Preforms tensor fitting. Note: input volume should be eddy_corrected. Output basename should be an exisiting directory or errors will occur" posX="136" posY="1038" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-dtifit">
+                        <metadata>
+                                <data key="__creationDateKey" value="Sat Oct 18 18:31:52 PDT 2008" />
+                        </metadata>
+                        <input id="dti1_fit_1.bvecs" name="bvecs" required="true" enabled="true" order="1" prefix="--bvecs=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.bvals" name="bvals" required="true" enabled="true" order="2" prefix="--bvals=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.Inputdata" name="Input data" required="true" enabled="true" order="3" prefix="--data=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.Outputbasename" name="Output basename" required="true" enabled="true" order="0" prefix="--out=" prefixSpaced="false" prefixAllArgs="false" includeTransformedParameter="true">
+                                <format type="Directory" cardinality="1">
+                                        <transform order="0" operation="Append">/dti</transform>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.Nodifbrainmask" name="Nodif brain mask" required="true" enabled="true" order="4" prefix="--mask=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="dti1_fit_1.FAmap" name="FA map" required="false" enabled="false" order="5" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output basename">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Append">_FA.nii.gz</transform>
+                                </format>
+                        </output>
+                </module>
+                <dataModule id="eddy_corrected_1" name="eddy_corrected" description="Double click to set input " posX="168" posY="0" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Feb 22 10:11:27 EST 2013" />
+                        </metadata>
+                        <output id="eddy_corrected_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI1/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI1/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI1/eddy_corrected.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="brain_mask_1" name="brain_mask" description="Double click to set input " posX="218" posY="95" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Feb 22 10:12:06 EST 2013" />
+                        </metadata>
+                        <output id="brain_mask_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI1/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI1/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI1/brain_mask.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="bvec_1" name="bvec" description="Double click to set input " posX="46" posY="273" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jan 29 13:27:42 PST 2010" />
+                        </metadata>
+                        <output id="bvec_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="bvec" extension="bvec" description="b-vectors" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="bvec" extension="bvec" description="b-vectors" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/20121002_154520DTI1s008a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/20121002_164846DTI1s008a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/20121009_162005DTI1s008a001.bvec</value>
+                        </values>
+                </dataModule>
+                <module id="dti2_fit_1" name="dti2_fit" package="FSL" description="Preforms tensor fitting. Note: input volume should be eddy_corrected. Output basename should be an exisiting directory or errors will occur" posX="517" posY="1036" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-dtifit">
+                        <metadata>
+                                <data key="__creationDateKey" value="Sat Oct 18 18:31:52 PDT 2008" />
+                        </metadata>
+                        <input id="dti2_fit_1.bvecs" name="bvecs" required="true" enabled="true" order="1" prefix="--bvecs=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti2_fit_1.bvals" name="bvals" required="true" enabled="true" order="2" prefix="--bvals=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti2_fit_1.Inputdata" name="Input data" required="true" enabled="true" order="3" prefix="--data=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti2_fit_1.Outputbasename" name="Output basename" required="true" enabled="true" order="0" prefix="--out=" prefixSpaced="false" prefixAllArgs="false" includeTransformedParameter="true">
+                                <format type="Directory" cardinality="1">
+                                        <transform order="0" operation="Append">/dti</transform>
+                                </format>
+                        </input>
+                        <input id="dti2_fit_1.Nodifbrainmask" name="Nodif brain mask" required="true" enabled="true" order="4" prefix="--mask=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="dti2_fit_1.FAmap" name="FA map" required="false" enabled="false" order="5" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output basename">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Append">_FA.nii.gz</transform>
+                                </format>
+                        </output>
+                        <output id="dti2_fit_1.Newparameter1" name="New parameter 1" required="false" enabled="false" order="6" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output basename">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </module>
+                <dataModule id="eddy_corrected_2" name="eddy_corrected" description="Double click to set input " posX="548" posY="0" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Feb 22 10:11:27 EST 2013" />
+                        </metadata>
+                        <output id="eddy_corrected_2.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI2/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI2/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI2/eddy_corrected.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="brain_mask_2" name="brain_mask" description="Double click to set input " posX="598" posY="91" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Feb 22 10:12:06 EST 2013" />
+                        </metadata>
+                        <output id="brain_mask_2.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI2/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI2/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI2/brain_mask.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="bvec_2" name="bvec" description="Double click to set input " posX="430" posY="272" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jan 29 13:27:42 PST 2010" />
+                        </metadata>
+                        <output id="bvec_2.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="bvec" extension="bvec" description="b-vectors" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="bvec" extension="bvec" description="b-vectors" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/20121002_154520DTI2s014a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/20121002_164846DTI2s014a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/20121009_162005DTI2s014a001.bvec</value>
+                        </values>
+                </dataModule>
+                <dataModule id="bval_1" name="bval" description="Double click to set input " posX="45" posY="98" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jan 29 13:27:42 PST 2010" />
+                        </metadata>
+                        <output id="bval_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="bval" extension="bval" description="b-values" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="bval" extension="bval" description="b-values" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/20121002_154520DTI1s008a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/20121002_164846DTI1s008a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/20121009_162005DTI1s008a001.bval</value>
+                        </values>
+                </dataModule>
+                <dataModule id="bval_2" name="bval" description="Double click to set input " posX="431" posY="97" sourceCode="" type="File" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jan 29 13:27:42 PST 2010" />
+                        </metadata>
+                        <output id="bval_2.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="bval" extension="bval" description="b-values" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="bval" extension="bval" description="b-values" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/20121002_154520DTI2s014a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/20121002_164846DTI2s014a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/20121009_162005DTI2s014a001.bval</value>
+                        </values>
+                </dataModule>
+                <dataModule id="DTI1Directory_1" name="DTI1 Directory" posX="0" posY="814" rotation="1" sourceCode="" type="Directory" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 19 14:15:55 EDT 2013" />
+                        </metadata>
+                        <output id="DTI1Directory_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="Directory" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI1</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI1</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI1</value>
+                        </values>
+                </dataModule>
+                <dataModule id="DTI2Directory_1" name="DTI2 Directory" posX="387" posY="812" rotation="1" sourceCode="" type="Directory" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 19 14:16:24 EDT 2013" />
+                        </metadata>
+                        <output id="DTI2Directory_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="Directory" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS20/DTI2</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS21/DTI2</value>
+                                <value>pipeline://localhost//home/brainimaging/TEST/LIFESPANS23/DTI2</value>
+                        </values>
+                </dataModule>
+                <variables>
+                        <variable name="exptDir">/path/to/exptDir</variable>
+                </variables>
+                <annotations visible="true">
+                        <annotation width="808" height="1070" posX="790" posY="0" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;dti1_fit:&#xA;1. Double click DTI1 Directory. Search: 'DTI1' in the experiment folder using Home Folder. Drag and drop DTI1 directories for all subjects. Find&amp;Replace. Find: file://. Replace All. &#xA;&#xA;2. Double click bvec. Search: 'bvec' in each experiment folder using Home Folder. Drag and drop bvec files (left coloumn) ensuring they are in the same order as your DTI1 Directory input. Find&amp;Replace. Find: file://. Replace All.  &#xA;&#xA;3. Repeat step 2 for bval files&#xA;&#xA;4. Search: 'eddy' in Home Folder experiment directory (which contains all subjects). Drag and drop all eddy_corrected files for each subject. Find&amp;Replace: Find: 'file://'. Replace All (NOTE: Drag only the left most coloumn and ensure they are DTI1 eddy_corrected images NOT DTI2 using: right click image--&gt;properties)&#xA;&#xA;5.  Search: 'mask' in home experiment directory using folder manager. Drag and drop all brain_mask files for each subject. Find&amp;Replace: Find: 'file://'. Replace All (NOTE: Drag only the left most coloumn and ensure they are DTI1 brain_mask images NOT DTI2 using: right click--&gt;properties)&#xA;&#xA;dti2_fit:&#xA;1. Copy all input from DTI1 Directory. Double click DTI2 Directory. Paste all input. Find&amp;Replace. Find: DTI1. Replace All: DTI2&#xA;&#xA;2. Repeat steps 2,3 from dti1_fit, making sure to drag in DTI2 (right coloumn) bvec and bval files and remove 'file://' prefix&#xA;&#xA;3. Copy all input from dti1_fit eddy_corrected. Paste into dti2_fit eddy_corrected. Find&amp;Replace. Find: DTI1. Replace All: DTI2&#xA;&#xA;4. Copy all input from dti1_fit brain_mask. Paste into dti2_fit brain_mask. Find&amp;Replace. Find: DTI1. Replace All: DTI2&#xA;&#xA;*NOTE: Be sure that DTI Directory, bvec, bval, eddy_corrected and brain_mask input all have the same subject ordering (i.e., ascending by subject #)&#xA;&#xA;Press Play&#xA;&#xA;TIPS: &#xA;-Use Ctl+(left,right) arrow keys to move to the beginning and end of a word&#xA;-Copy (Ctl+C)&#xA;-Paste (Ctl+V)&#xA;-Undo (Ctl+Z)&#xA;-Highlight (Shift+left/right arrow key)&#xA;-Right click Home Folder and select 'Always on top' so it doesn't disappear everytime you click elsewhere.&#xA;&#xA;Outptut: Diffusion Tensor Fitted Model for each subdirectory DTI1 and DTI2 of each respective subject directory.&#xA;&#xA;Expected Output Files:&#xA;dti_V1 - 1st eigenvector&#xA;dti_V2 - 2nd eigenvector&#xA;dti_V3 - 3rd eigenvector&#xA;dti_L1 - 1st eigenvalue&#xA;dti_L2 - 2nd eigenvalue&#xA;dti_L3 - 3rd eigenvalue&#xA;dti_MD - mean diffusivity&#xA;dti_FA - fractional anisotropy&#xA;dti_MO - mode of the anisotropy (oblate ~ -1; isotropic ~ 0; prolate ~ 1)&#xA;dti_S0 - raw T2 signal with no diffusion weighting">
+                                <styles>
+                                        <style name="Steps:$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;$6" fontSize="15" />
+                                        <style name="dti1_fit:$8" fontSize="15" isBold="true" />
+                                        <style name="&#xA;1. Double click DTI1 Directory. $17" fontSize="15" />
+                                        <style name="Search$50" fontSize="15" isBold="true" />
+                                        <style name=": 'DTI1' in the $56" fontSize="15" />
+                                        <style name="experiment$72" fontSize="15" isBold="true" />
+                                        <style name=" folder using Home Folder. Drag and drop DTI1 directories for all subjects. $82" fontSize="15" />
+                                        <style name="Find&amp;Replace$158" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All. &#xA;&#xA;2. Double click bvec. $170" fontSize="15" />
+                                        <style name="Search$224" fontSize="15" isBold="true" />
+                                        <style name=": 'bvec' in each $230" fontSize="15" />
+                                        <style name="experiment$247" fontSize="15" isBold="true" />
+                                        <style name=" folder using Home Folder. Drag and drop bvec files ($257" fontSize="15" />
+                                        <style name="left coloumn$310" fontSize="15" isBold="true" />
+                                        <style name=") ensuring they are in the same order as your DTI1 Directory input. $322" fontSize="15" />
+                                        <style name="Find&amp;Replace$390" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All.  &#xA;&#xA;3. Repeat step 2 for bval files&#xA;&#xA;4. $402" fontSize="15" />
+                                        <style name="Search$471" fontSize="15" isBold="true" />
+                                        <style name=": 'eddy' in Home Folder experiment directory (which contains all subjects). Drag and drop all eddy_corrected files for each subject. $477" fontSize="15" />
+                                        <style name="Find&amp;Replace$610" fontSize="15" isBold="true" />
+                                        <style name=": Find: 'file://'. Replace All ($622" fontSize="15" />
+                                        <style name="NOTE$654" fontSize="15" isBold="true" />
+                                        <style name=": Drag only the left most coloumn and ensure they are DTI1 eddy_corrected images NOT DTI2 using: right click image--&gt;properties)&#xA;&#xA;5.  $658" fontSize="15" />
+                                        <style name="Search$792" fontSize="15" isBold="true" />
+                                        <style name=": 'mask' in home experiment directory using folder manager. Drag and drop all brain_mask files for each subject. $798" fontSize="15" />
+                                        <style name="Find&amp;Replace$911" fontSize="15" isBold="true" />
+                                        <style name=": Find: 'file://'. Replace All ($923" fontSize="15" />
+                                        <style name="NOTE$955" fontSize="15" isBold="true" />
+                                        <style name=": Drag only the left most coloumn and ensure they are DTI1 brain_mask images NOT DTI2 using: right click--&gt;properties)&#xA;&#xA;$959" fontSize="15" />
+                                        <style name="dti2_fit:$1079" fontSize="15" isBold="true" />
+                                        <style name="&#xA;1. Copy all input from DTI1 Directory. Double click DTI2 Directory. Paste all input. $1088" fontSize="15" />
+                                        <style name="Find&amp;Replace$1174" fontSize="15" isBold="true" />
+                                        <style name=". Find: DTI1. Replace All: DTI2&#xA;&#xA;2. Repeat steps 2,3 from $1186" fontSize="15" />
+                                        <style name="dti1_fit$1244" fontSize="15" isBold="true" />
+                                        <style name=", making sure to drag in $1252" fontSize="15" />
+                                        <style name="DTI2$1277" fontSize="15" isBold="true" />
+                                        <style name=" (right coloumn) bvec and bval files and remove 'file://' prefix&#xA;&#xA;3. Copy all input from $1281" fontSize="15" />
+                                        <style name="dti1_fit$1370" fontSize="15" isBold="true" />
+                                        <style name=" eddy_corrected. Paste into $1378" fontSize="15" />
+                                        <style name="dti2_fit$1406" fontSize="15" isBold="true" />
+                                        <style name=" eddy_corrected. $1414" fontSize="15" />
+                                        <style name="Find&amp;Replace$1431" fontSize="15" isBold="true" />
+                                        <style name=". Find: DTI1. Replace All: DTI2&#xA;&#xA;4. Copy all input from $1443" fontSize="15" />
+                                        <style name="dti1_fit$1499" fontSize="15" isBold="true" />
+                                        <style name=" brain_mask. Paste into $1507" fontSize="15" />
+                                        <style name="dti2_fit $1531" fontSize="15" isBold="true" />
+                                        <style name="brain_mask. $1540" fontSize="15" />
+                                        <style name="Find&amp;Replace$1552" fontSize="15" isBold="true" />
+                                        <style name=". Find: DTI1. Replace All: DTI2&#xA;&#xA;$1564" fontSize="15" />
+                                        <style name="*NOTE: Be sure that DTI Directory, bvec, bval, eddy_corrected and brain_mask input all have the same subject ordering (i.e., ascending by subject #)&#xA;&#xA;Press Play$1597" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;$1757" fontSize="15" />
+                                        <style name="TIPS:$1759" fontSize="15" isBold="true" />
+                                        <style name=" &#xA;-Use Ctl+(left,right) arrow keys to move to the beginning and end of a word&#xA;-Copy (Ctl+C)&#xA;-Paste (Ctl+V)&#xA;-Undo (Ctl+Z)&#xA;-Highlight (Shift+left/right arrow key)&#xA;-Right click Home Folder and select 'Always on top' so it doesn't disappear everytime you click elsewhere.&#xA;&#xA;$1764" fontSize="15" />
+                                        <style name="Outptut:$2033" fontSize="15" isBold="true" />
+                                        <style name=" Diffusion Tensor Fitted Model for each subdirectory DTI1 and DTI2 of each respective subject directory.&#xA;&#xA;$2041" fontSize="15" />
+                                        <style name="Expected Output Files:$2147" fontSize="15" isBold="true" />
+                                        <style name="&#xA;dti_V1 - 1st eigenvector&#xA;dti_V2 - 2nd eigenvector&#xA;dti_V3 - 3rd eigenvector&#xA;dti_L1 - 1st eigenvalue&#xA;dti_L2 - 2nd eigenvalue&#xA;dti_L3 - 3rd eigenvalue&#xA;dti_MD - mean diffusivity&#xA;dti_FA - fractional anisotropy&#xA;dti_MO - mode of the anisotropy (oblate ~ -1; isotropic ~ 0; prolate ~ 1)&#xA;dti_S0 - raw T2 signal with no diffusion weighting$2169" fontSize="15" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="bvec_1.Output" sink="dti1_fit_1.bvecs" />
+                <connection source="bval_1.Output" sink="dti1_fit_1.bvals" />
+                <connection source="eddy_corrected_1.Output" sink="dti1_fit_1.Inputdata" />
+                <connection source="DTI1Directory_1.Output" sink="dti1_fit_1.Outputbasename" />
+                <connection source="brain_mask_1.Output" sink="dti1_fit_1.Nodifbrainmask" />
+        </connections>
+        <moduleGroup id="C_dtifit_single_1" name="C_dtifit_single" posX="0" posY="0" sourceCode="">
+                <module id="dti1_fit_1" name="dti1_fit" package="FSL" description="Preforms tensor fitting. Note: input volume should be eddy_corrected. Output basename should be an exisiting directory or errors will occur" posX="189" posY="684" sourceCode="" location="pipeline://localhost//usr/bin/fsl5.0-dtifit">
+                        <metadata>
+                                <data key="__creationDateKey" value="Sat Oct 18 18:31:52 PDT 2008" />
+                        </metadata>
+                        <input id="dti1_fit_1.bvecs" name="bvecs" required="true" enabled="true" order="1" prefix="--bvecs=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.bvals" name="bvals" required="true" enabled="true" order="2" prefix="--bvals=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.Inputdata" name="Input data" required="true" enabled="true" order="3" prefix="--data=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.Outputbasename" name="Output basename" required="true" enabled="true" order="0" prefix="--out=" prefixSpaced="false" prefixAllArgs="false" includeTransformedParameter="true">
+                                <format type="Directory" cardinality="1">
+                                        <transform order="0" operation="Append">/dti</transform>
+                                </format>
+                        </input>
+                        <input id="dti1_fit_1.Nodifbrainmask" name="Nodif brain mask" required="true" enabled="true" order="4" prefix="--mask=" prefixSpaced="false" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="dti1_fit_1.FAmap" name="FA map" required="false" enabled="false" order="5" includeTransformedParameter="false">
+                                <format type="File" cardinality="1" transformationBase="Output basename">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                        <transform order="0" operation="Append">_FA.nii.gz</transform>
+                                </format>
+                        </output>
+                </module>
+                <dataModule id="eddy_corrected_1" name="eddy_corrected" description="Double click to set input " posX="264" posY="0" sourceCode="" type="File" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Feb 22 10:11:27 EST 2013" />
+                        </metadata>
+                        <output id="eddy_corrected_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/AQ21/dti1_AQ21/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BT07/dti1_BT07/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BU20/dti1_BU20/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/GQ24/dti1_GQ24/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/dti1_HI19/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/dti2_HI19/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HP12/dti1_HP12/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/II14/dti1_II14/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IQ11/dti1_IQ11/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IZ07/dti1_IZ07/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/KI23/dti1_KI23/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/NA06/dti1_NA06/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/PU31/dti1_PU31/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZF09/dti1_ZF09/eddy_corrected.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZP13/dti1_ZP13/eddy_corrected.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="brain_mask_1" name="brain_mask" description="Double click to set input " posX="315" posY="95" sourceCode="" type="File" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Feb 22 10:12:06 EST 2013" />
+                        </metadata>
+                        <output id="brain_mask_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/AQ21/dti1_AQ21/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BT07/dti1_BT07/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BU20/dti1_BU20/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/GQ24/dti1_GQ24/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/dti1_HI19/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/dti2_HI19/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HP12/dti1_HP12/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/II14/dti1_II14/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IQ11/dti1_IQ11/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IZ07/dti1_IZ07/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/KI23/dti1_KI23/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/NA06/dti1_NA06/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/PU31/dti1_PU31/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZF09/dti1_ZF09/brain_mask.nii.gz</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZP13/dti1_ZP13/brain_mask.nii.gz</value>
+                        </values>
+                </dataModule>
+                <dataModule id="bvec_1" name="bvec" description="Double click to set input " posX="122" posY="175" sourceCode="" type="File" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jan 29 13:27:42 PST 2010" />
+                        </metadata>
+                        <output id="bvec_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="bvec" extension="bvec" description="b-vectors" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="bvec" extension="bvec" description="b-vectors" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/AQ21/DICOM/20110408_153750axep2ddiffmddwiPAT332CHs017a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BT07/DICOM/20100928_151552axep2ddiffmddwiPAT332CHs015a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BU20/DICOM/20110511_145159axep2ddiffmddwiPAT332CHs013a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/GQ24/DICOM/20101001_151240axep2ddiffmddwiPAT332CHs013a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/DICOM/20110323_104858axep2ddiffmddwiPAT332CHs015a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/DICOM/20110323_104858axep2ddiffmddwiPAT332CHs015a001A.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HP12/DICOM/20110412_142359axep2ddiffmddwiPAT332CHs015a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/II14/DICOM/20110511_122835axep2ddiffmddwiPAT332CHs019a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IQ11/DICOM/20110428_115914axep2ddiffmddwiPAT332CHs017a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IZ07/DICOM/20110316_133145axep2ddiffmddwiPAT332CHs017a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/KI23/DICOM/20101001_131311axep2ddiffmddwiPAT332CHs014a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/NA06/DICOM/20110412_092903axep2ddiffmddwiPAT332CHs015a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/PU31/DICOM/20100928_131557axep2ddiffmddwiPAT332CHs013a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZF09/DICOM/20110322_110304axep2ddiffmddwiPAT332CHs017a001.bvec</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZP13/DICOM/20110310_181626axep2ddiffmddwiPAT332CHs015a001.bvec</value>
+                        </values>
+                </dataModule>
+                <dataModule id="bval_1" name="bval" description="Double click to set input " posX="121" posY="0" sourceCode="" type="File" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Jan 29 13:27:42 PST 2010" />
+                        </metadata>
+                        <output id="bval_1.Output" name="Output" description="Double click to set input " required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="bval" extension="bval" description="b-values" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <fileTypes>
+                                <filetype name="bval" extension="bval" description="b-values" />
+                        </fileTypes>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/AQ21/DICOM/20110408_153750axep2ddiffmddwiPAT332CHs017a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BT07/DICOM/20100928_151552axep2ddiffmddwiPAT332CHs015a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BU20/DICOM/20110511_145159axep2ddiffmddwiPAT332CHs013a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/GQ24/DICOM/20101001_151240axep2ddiffmddwiPAT332CHs013a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/DICOM/20110323_104858axep2ddiffmddwiPAT332CHs015a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/DICOM/20110323_104858axep2ddiffmddwiPAT332CHs015a001A.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HP12/DICOM/20110412_142359axep2ddiffmddwiPAT332CHs015a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/II14/DICOM/20110511_122835axep2ddiffmddwiPAT332CHs019a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IQ11/DICOM/20110428_115914axep2ddiffmddwiPAT332CHs017a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IZ07/DICOM/20110316_133145axep2ddiffmddwiPAT332CHs017a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/KI23/DICOM/20101001_131311axep2ddiffmddwiPAT332CHs014a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/NA06/DICOM/20110412_092903axep2ddiffmddwiPAT332CHs015a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/PU31/DICOM/20100928_131557axep2ddiffmddwiPAT332CHs013a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZF09/DICOM/20110322_110304axep2ddiffmddwiPAT332CHs017a001.bval</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZP13/DICOM/20110310_181626axep2ddiffmddwiPAT332CHs015a001.bval</value>
+                        </values>
+                </dataModule>
+                <dataModule id="DTI1Directory_1" name="DTI1 Directory" posX="0" posY="310" rotation="1" sourceCode="" type="Directory" source="true" loopIndex="false">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Mar 19 14:15:55 EDT 2013" />
+                        </metadata>
+                        <output id="DTI1Directory_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="Directory" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/AQ21/dti1_AQ21</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BT07/dti1_BT07</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/BU20/dti1_BU20</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/GQ24/dti1_GQ24</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/dti1_HI19</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HP12/dti1_HP12</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/II14/dti1_II14</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IQ11/dti1_IQ11</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/IZ07/dti1_IZ07</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/KI23/dti1_KI23</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/NA06/dti1_NA06</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/PU31/dti1_PU31</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZF09/dti1_ZF09</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/ZP13/dti1_ZP13</value>
+                                <value>pipeline://localhost//home/brainimaging/Cerebellum/dicoms/HI19/dti2_HI19</value>
+                        </values>
+                </dataModule>
+                <variables>
+                        <variable name="exptDir">/path/to/exptDir</variable>
+                </variables>
+                <annotations visible="true">
+                        <annotation width="805" height="782" posX="511" posY="7" background="102,102,204,51" foreground="0,0,0,255" expanded="true" type="text" name="Steps:&#xA;&#xA;1. Double click DTI1 Directory. Search: 'DTI1' using Home Folder. Drag and drop DTI1 directories for all subjects. Find&amp;Replace. Find: file://. Replace All. &#xA;&#xA;2. Double click bvec. Search: 'bvec' in each subject folder using Home Folder. Drag and drop bvec files in the same order as DTI1 Directory input. Find&amp;Replace. Find: file://. Replace All.  &#xA;&#xA;3. Repeat step 2 for bval files&#xA;&#xA;4. Search: 'eddy' in Home Folder experiment directory (which contains all subjects). Drag and drop all eddy_corrected files for each subject. Find&amp;Replace: Find: 'file://'. Replace All. (NOTE: Drag only the left most coloumn and ensure they are DTI1 eddy_corrected images NOT DTI2 using: right click image--&gt;properties)&#xA;&#xA;5.  Search: 'mask' in home experiment directory using folder manager. Drag and drop all brain_mask files for each subject. Find&amp;Replace: Find: 'file://'. Replace All (NOTE: Drag only the left most coloumn and ensure they are DTI1 brain_mask images NOT DTI2 using: right click--&gt;properties)&#xA;&#xA;Press Play&#xA;&#xA;TIPS: &#xA;-Use Ctl+(left,right) arrow keys to move to the beginning and end of a word&#xA;-Copy (Ctl+C)&#xA;-Paste (Ctl+V)&#xA;-Undo (Ctl+Z)&#xA;-Highlight (Shift+left/right arrow key)&#xA;-Right click Home Folder and select 'Always on top' so it doesn't disappear everytime you click elsewhere.&#xA;&#xA;Outptut: Diffusion Tensor Fitted Model for each subdirectory DTI1 and DTI2 of each respective subject directory.&#xA;&#xA;Expected Output Files:&#xA;dti_V1 - 1st eigenvector&#xA;dti_V2 - 2nd eigenvector&#xA;dti_V3 - 3rd eigenvector&#xA;dti_L1 - 1st eigenvalue&#xA;dti_L2 - 2nd eigenvalue&#xA;dti_L3 - 3rd eigenvalue&#xA;dti_MD - mean diffusivity&#xA;dti_FA - fractional anisotropy&#xA;dti_MO - mode of the anisotropy (oblate ~ -1; isotropic ~ 0; prolate ~ 1)&#xA;dti_S0 - raw T2 signal with no diffusion weighting">
+                                <styles>
+                                        <style name="Steps:&#xA;$0" fontSize="15" isBold="true" />
+                                        <style name="&#xA;1. Double click DTI1 Directory. $7" fontSize="15" />
+                                        <style name="Search$40" fontSize="15" isBold="true" />
+                                        <style name=": 'DTI1' using Home Folder. Drag and drop DTI1 directories for all subjects. $46" fontSize="15" />
+                                        <style name="Find&amp;Replace$123" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All. &#xA;&#xA;2. Double click bvec. $135" fontSize="15" />
+                                        <style name="Search$189" fontSize="15" isBold="true" />
+                                        <style name=": 'bvec' in each subject folder using Home Folder. Drag and drop bvec files in the same order as DTI1 Directory input. $195" fontSize="15" />
+                                        <style name="Find&amp;Replace$314" fontSize="15" isBold="true" />
+                                        <style name=". Find: file://. Replace All.  &#xA;&#xA;3. Repeat step 2 for bval files&#xA;&#xA;4. $326" fontSize="15" />
+                                        <style name="Search$395" fontSize="15" isBold="true" />
+                                        <style name=": 'eddy' in Home Folder experiment directory (which contains all subjects). Drag and drop all eddy_corrected files for each subject. $401" fontSize="15" />
+                                        <style name="Find&amp;Replace$534" fontSize="15" isBold="true" />
+                                        <style name=": Find: 'file://'. Replace All. ($546" fontSize="15" />
+                                        <style name="NOTE$579" fontSize="15" isBold="true" />
+                                        <style name=": Drag only the left most coloumn and ensure they are DTI1 eddy_corrected images NOT DTI2 using: right click image--&gt;properties)&#xA;&#xA;5.  $583" fontSize="15" />
+                                        <style name="Search$717" fontSize="15" isBold="true" />
+                                        <style name=": 'mask' in home experiment directory using folder manager. Drag and drop all brain_mask files for each subject. $723" fontSize="15" />
+                                        <style name="Find&amp;Replace$836" fontSize="15" isBold="true" />
+                                        <style name=": Find: 'file://'. Replace All ($848" fontSize="15" />
+                                        <style name="NOTE$880" fontSize="15" isBold="true" />
+                                        <style name=": Drag only the left most coloumn and ensure they are DTI1 brain_mask images NOT DTI2 using: right click--&gt;properties)$884" fontSize="15" />
+                                        <style name="&#xA;$1002" fontSize="15" isBold="true" />
+                                        <style name="&#xA;$1003" fontSize="15" />
+                                        <style name="Press Play$1004" fontSize="15" isBold="true" />
+                                        <style name="&#xA;&#xA;$1014" fontSize="15" />
+                                        <style name="TIPS:$1016" fontSize="15" isBold="true" />
+                                        <style name=" &#xA;-Use Ctl+(left,right) arrow keys to move to the beginning and end of a word&#xA;-Copy (Ctl+C)&#xA;-Paste (Ctl+V)&#xA;-Undo (Ctl+Z)&#xA;-Highlight (Shift+left/right arrow key)&#xA;-Right click Home Folder and select 'Always on top' so it doesn't disappear everytime you click elsewhere.&#xA;&#xA;$1021" fontSize="15" />
+                                        <style name="Outptut:$1290" fontSize="15" isBold="true" />
+                                        <style name=" Diffusion Tensor Fitted Model for each subdirectory DTI1 and DTI2 of each respective subject directory.&#xA;&#xA;$1298" fontSize="15" />
+                                        <style name="Expected Output Files:$1404" fontSize="15" isBold="true" />
+                                        <style name="&#xA;dti_V1 - 1st eigenvector&#xA;dti_V2 - 2nd eigenvector&#xA;dti_V3 - 3rd eigenvector&#xA;dti_L1 - 1st eigenvalue&#xA;dti_L2 - 2nd eigenvalue&#xA;dti_L3 - 3rd eigenvalue&#xA;dti_MD - mean diffusivity&#xA;dti_FA - fractional anisotropy&#xA;dti_MO - mode of the anisotropy (oblate ~ -1; isotropic ~ 0; prolate ~ 1)&#xA;dti_S0 - raw T2 signal with no diffusion weighting$1426" fontSize="15" />
+                                </styles>
+                        </annotation>
+                </annotations>
+        </moduleGroup>
+</pipeline>
+

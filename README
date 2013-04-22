@@ -3,7 +3,7 @@ USING THE PIPELINE
 PIPELINE LOCATION:
 1. Software is available at: http://pipeline.loni.ucla.edu/products-services/pipeline-software/
 
-2. On the HP PAVILLION HPE computer in Sandrin'es office on the 10th floor of UH (B10-006) you can find the pipeline:
+2. On the HP PAVILLION HPE computer in Sandrine's office on the 10th floor of UH (B10-006) you can find the pipeline:
 /home/brainimaging/Pipeline_v5.7-unix/PipelineGUI.sh (double click and run in terminal)
 OR
 /home/brainimaging/Desktop/START_PIPE.sh/run in terminal
